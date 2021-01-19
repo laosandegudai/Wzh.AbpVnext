@@ -26,7 +26,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Volo\Abp\AuditLogging\Localization\zh-Hans.json" />
+    <None Remove="Volo\Abp\Identity\Localization\AbpVnext\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Volo\Abp\AuditLogging\Localization\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\Identity\Localization\AbpVnext\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\AbpVnext\zh-Hans.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

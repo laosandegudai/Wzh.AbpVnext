@@ -20,9 +20,9 @@
     "EditArticleCategory": "编辑文章",
     "ArticleCategoryDeletionConfirmationMessage": "您确定要删除这条文章分类 {0}?",
     "SuccessfullyDeleted": "删除成功",
-    "Permission:Article": "Article",
+    "Permission:Article": "文章",
     "Menu:Article": "MenuArticle",
-    "Article": "Article",
+    "Article": "文章",
     "ArticleTitle": "ArticleTitle",
     "ArticleLinkUrl": "ArticleLinkUrl",
     "ArticleImgUrl": "ArticleImgUrl",
@@ -34,6 +34,10 @@
     "ArticleCategoryId": "ArticleCategoryId",
     "CreateArticle": "CreateArticle",
     "EditArticle": "EditArticle",
-    "ArticleDeletionConfirmationMessage": "Are you sure to delete the article {0}?"
+    "ArticleDeletionConfirmationMessage": "Are you sure to delete the article {0}?",
+    "Feature:SocialLogins": "社交登录",
+    "Feature:UserCount": "用户数量",
+    "Feature:UserCount.Maximum": "允许的最大用户数量为{0}",
+    "AbpAuditLogging": "审计日志管理"
   }
 }

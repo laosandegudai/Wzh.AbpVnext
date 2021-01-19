@@ -2,6 +2,8 @@ using Wzh.AbpVnext.Articles;
 using Wzh.AbpVnext.Articles.Dtos;
 using AutoMapper;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Identity;
+using Volo.Abp.AuditLogging;
 
 namespace Wzh.AbpVnext
 {
@@ -17,6 +19,35 @@ namespace Wzh.AbpVnext
             CreateMap<CreateUpdateArticleCategoryDto, ArticleCategory>(MemberList.Source);
             CreateMap<Article, ArticleDto>();
             CreateMap<CreateUpdateArticleDto, Article>(MemberList.Source);
+
+
+            CreateMap<OrganizationUnit, OrganizationUnitDto>()
+                .MapExtraProperties();
+
+            CreateMap<IdentityUserOrgCreateDto, IdentityUserCreateDto>();
+            CreateMap<IdentityUserOrgUpdateDto, IdentityUserUpdateDto>();
+
+            CreateMap<IdentityRoleOrgCreateDto, IdentityRoleCreateDto>();
+
+            //AuditLog
+            CreateMap<AuditLog, AuditLogDto>()
+                .MapExtraProperties();
+
+            CreateMap<EntityChange, EntityChangeDto>()
+                .MapExtraProperties();
+
+            CreateMap<EntityPropertyChange, EntityPropertyChangeDto>();
+
+            CreateMap<AuditLogAction, AuditLogActionDto>();
+
+            //Claim
+            CreateMap<IdentityClaimType, ClaimTypeDto>().Ignore(x => x.ValueTypeAsString);
+            CreateMap<IdentityUserClaim, IdentityUserClaimDto>();
+            CreateMap<IdentityUserClaimDto, IdentityUserClaim>().Ignore(x => x.TenantId).Ignore(x => x.Id);
+            CreateMap<IdentityRoleClaim, IdentityRoleClaimDto>();
+            CreateMap<IdentityRoleClaimDto, IdentityRoleClaim>().Ignore(x => x.TenantId).Ignore(x => x.Id);
+            CreateMap<CreateClaimTypeDto, IdentityClaimType>().Ignore(x => x.IsStatic).Ignore(x => x.Id);
+            CreateMap<UpdateClaimTypeDto, IdentityClaimType>().Ignore(x => x.IsStatic).Ignore(x => x.Id);
         }
 
 

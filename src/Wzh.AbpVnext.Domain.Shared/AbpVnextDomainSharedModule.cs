@@ -12,6 +12,8 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AuditLogging.Localization;
+using Volo.Abp.Identity.Localization;
 
 namespace Wzh.AbpVnext
 {
@@ -48,6 +50,12 @@ namespace Wzh.AbpVnext
                     .AddVirtualJson("/Localization/AbpVnext");
 
                 options.DefaultResourceType = typeof(AbpVnextResource);
+                options.Resources
+                    .Get<IdentityResource>()
+                    .AddVirtualJson("/Volo/Abp/Identity/Localization/AbpVnext");
+                options.Resources
+                    .Get<AuditLoggingResource>()
+                    .AddVirtualJson("/Volo/Abp/AuditLogging/Localization");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
