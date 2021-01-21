@@ -14,6 +14,9 @@ using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.Identity.Localization;
+using EasyAbp.Abp.Trees;
+using EasyAbp.FileManagement;
+using EasyAbp.FileManagement.Localization;
 
 namespace Wzh.AbpVnext
 {
@@ -25,7 +28,9 @@ namespace Wzh.AbpVnext
         typeof(AbpIdentityServerDomainSharedModule),
         typeof(AbpPermissionManagementDomainSharedModule),
         typeof(AbpSettingManagementDomainSharedModule),
-        typeof(AbpTenantManagementDomainSharedModule)
+        typeof(AbpTenantManagementDomainSharedModule),
+        typeof(AbpTreesDomainSharedModule),
+        typeof(FileManagementDomainSharedModule)
         )]
     public class AbpVnextDomainSharedModule : AbpModule
     {
@@ -56,6 +61,9 @@ namespace Wzh.AbpVnext
                 options.Resources
                     .Get<AuditLoggingResource>()
                     .AddVirtualJson("/Volo/Abp/AuditLogging/Localization");
+                options.Resources
+                    .Get<FileManagementResource>()
+                    .AddVirtualJson("/Localization/FileManagement");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>

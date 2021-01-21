@@ -14,6 +14,7 @@ using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using EasyAbp.Abp.Trees;
+using EasyAbp.FileManagement;
 
 namespace Wzh.AbpVnext
 {
@@ -28,7 +29,9 @@ namespace Wzh.AbpVnext
         typeof(AbpPermissionManagementDomainIdentityServerModule),
         typeof(AbpSettingManagementDomainModule),
         typeof(AbpTenantManagementDomainModule),
-        typeof(AbpEmailingModule)
+        typeof(AbpEmailingModule),
+        typeof(AbpTreesDomainModule),
+        typeof(FileManagementDomainModule)
     )]
     public class AbpVnextDomainModule : AbpModule
     {
@@ -38,7 +41,7 @@ namespace Wzh.AbpVnext
             {
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
-            context.Services.TryAddTransient(typeof(ITreeCodeGenerator<>), typeof(TreeCodeGenerator<>));
+            //context.Services.TryAddTransient(typeof(ITreeCodeGenerator<>), typeof(TreeCodeGenerator<>));
 #if DEBUG
             context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif

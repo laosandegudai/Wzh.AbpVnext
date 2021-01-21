@@ -38,6 +38,10 @@
     "Feature:SocialLogins": "社交登录",
     "Feature:UserCount": "用户数量",
     "Feature:UserCount.Maximum": "允许的最大用户数量为{0}",
-    "AbpAuditLogging": "审计日志管理"
+    "AbpAuditLogging": "审计日志管理",
+    "Permission:Manage": "管理",
+    "Permission:GetDownloadInfo": "获取下载信息",
+    "Permission:Move": "移动",
+    "Permission:FileManagement": "文件管理"
   }
 }

@@ -28,6 +28,12 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Microsoft.AspNetCore.Localization;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
+using Microsoft.AspNetCore.Hosting;
+using EasyAbp.FileManagement.Options;
+using EasyAbp.FileManagement.Files;
+using EasyAbp.FileManagement.Containers;
 
 namespace Wzh.AbpVnext
 {
@@ -41,7 +47,8 @@ namespace Wzh.AbpVnext
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAspNetCoreSerilogModule),
-        typeof(AbpSwashbuckleModule)
+        typeof(AbpSwashbuckleModule),
+        typeof(AbpBlobStoringFileSystemModule)
     )]
     public class AbpVnextHttpApiHostModule : AbpModule
     {
@@ -57,6 +64,7 @@ namespace Wzh.AbpVnext
             ConfigureConventionalControllers();
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
+            ConfigureFileManagement(hostingEnvironment);
             ConfigureVirtualFileSystem(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
@@ -181,6 +189,47 @@ namespace Wzh.AbpVnext
             });
         }
 
+
+        private void ConfigureFileManagement(IWebHostEnvironment hostingEnvironment)
+        {
+            Configure<AbpBlobStoringOptions>(options =>
+            {
+                options.Containers.Configure<LocalFileSystemBlobContainer>(container =>
+                {
+                    container.IsMultiTenant = true;
+                    container.UseFileSystem(fileSystem =>
+                    {
+                        fileSystem.BasePath = Path.Combine(hostingEnvironment.ContentRootPath, "my-files");
+                    });
+                });
+            });
+            Configure<FileManagementOptions>(options =>
+            {
+                options.DefaultFileDownloadProviderType = typeof(LocalFileDownloadProvider);
+                options.Containers.Configure<CommonFileContainer>(container =>
+                {
+                    // private container never be used by non-owner users (except user who has the "File.Manage" permission).
+                    container.FileContainerType = FileContainerType.Public;
+                    container.AbpBlobContainerName = BlobContainerNameAttribute.GetContainerName<LocalFileSystemBlobContainer>();
+                    container.AbpBlobDirectorySeparator = "/";
+
+                    container.RetainUnusedBlobs = false;
+                    container.EnableAutoRename = true;
+
+                    container.MaxByteSizeForEachFile = 5 * 1024 * 1024;
+                    container.MaxByteSizeForEachUpload = 10 * 1024 * 1024;
+                    container.MaxFileQuantityForEachUpload = 2;
+
+                    container.AllowOnlyConfiguredFileExtensions = true;
+                    container.FileExtensionsConfiguration.Add(".jpg", true);
+                    container.FileExtensionsConfiguration.Add(".png", true);
+                    // container.FileExtensionsConfiguration.Add(".exe", false);
+
+                    container.GetDownloadInfoTimesLimitEachUserPerMinute = 10;
+                });
+            });
+
+        }
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();

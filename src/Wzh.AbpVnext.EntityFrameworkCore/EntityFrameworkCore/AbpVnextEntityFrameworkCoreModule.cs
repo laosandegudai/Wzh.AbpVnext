@@ -12,6 +12,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.DependencyInjection;
+using EasyAbp.FileManagement.EntityFrameworkCore;
+using EasyAbp.Abp.Trees.EntityFrameworkCore;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
@@ -25,7 +27,9 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
         typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+        typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+        typeof(AbpTreesEntityFrameworkCoreModule),
+        typeof(FileManagementEntityFrameworkCoreModule)
         )]
     public class AbpVnextEntityFrameworkCoreModule : AbpModule
     {

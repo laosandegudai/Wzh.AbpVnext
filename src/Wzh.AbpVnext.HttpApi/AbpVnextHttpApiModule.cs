@@ -7,6 +7,7 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.TenantManagement;
+using EasyAbp.FileManagement;
 
 namespace Wzh.AbpVnext
 {
@@ -16,7 +17,8 @@ namespace Wzh.AbpVnext
         typeof(AbpIdentityHttpApiModule),
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpTenantManagementHttpApiModule),
-        typeof(AbpFeatureManagementHttpApiModule)
+        typeof(AbpFeatureManagementHttpApiModule),
+        typeof(FileManagementHttpApiModule)
         )]
     public class AbpVnextHttpApiModule : AbpModule
     {
