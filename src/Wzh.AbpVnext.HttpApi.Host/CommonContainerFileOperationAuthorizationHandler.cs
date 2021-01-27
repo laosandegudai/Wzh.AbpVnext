@@ -91,7 +91,10 @@ namespace Wzh.AbpVnext
         protected override async Task HandleDeleteAsync(AuthorizationHandlerContext context, OperationAuthorizationRequirement requirement,
             FileOperationInfoModel resource)
         {
-            context.Fail();    // Files cannot be deleted.
+            //context.Fail();    // Files cannot be deleted.
+            context.Succeed(requirement);
+
+            await Task.CompletedTask;
         }
     }
 }

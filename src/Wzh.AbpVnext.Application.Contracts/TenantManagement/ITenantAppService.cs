@@ -11,6 +11,6 @@ namespace Wzh.AbpVnext.TenantManagement
 {
     public interface ITenantAppService: IApplicationService
     {
-        Task TenantSwitch(TenantSwitchInput input);
+        Task TenantSwitchAsync(TenantSwitchInput input);
     }
 }

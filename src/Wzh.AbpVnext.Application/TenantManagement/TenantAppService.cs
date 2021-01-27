@@ -18,7 +18,7 @@ namespace Wzh.AbpVnext.TenantManagement
         {
             TenantStore = tenantStore;
         }
-        public async Task TenantSwitch(TenantSwitchInput input)
+        public async Task TenantSwitchAsync(TenantSwitchInput input)
         {
             if (input.Name.IsNullOrEmpty())
             {
