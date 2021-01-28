@@ -10,5 +10,6 @@ namespace Volo.Abp.AuditLogging
     public interface IAuditLogAppService : IReadOnlyAppService<AuditLogDto, Guid, GetAuditLogDto>, IDeleteAppService<Guid>
     {
         Task DeleteManyAsync(params Guid[] ids);
+        Task<byte[]> ExportExcel(GetAuditLogDto input);
     }
 }

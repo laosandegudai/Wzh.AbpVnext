@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Globalization;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Wzh.AbpVnext.Controllers
@@ -9,5 +11,6 @@ namespace Wzh.AbpVnext.Controllers
         {
             return Redirect("~/swagger");
         }
+        
     }
 }

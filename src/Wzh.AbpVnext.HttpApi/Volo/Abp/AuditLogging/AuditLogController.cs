@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -12,7 +13,7 @@ namespace Volo.Abp.AuditLogging
     [ControllerName("AuditLogging")]
     [Area("auditlogging")]
     [Route("/api/audit-logging/audit-logs")]
-    public class AuditLogController : AbpVnextController, IAuditLogAppService
+    public class AuditLogController : AbpVnextController
     {
         protected IAuditLogAppService AuditLogAppService { get; }
         public AuditLogController(IAuditLogAppService auditLogAppService)
@@ -45,6 +46,18 @@ namespace Volo.Abp.AuditLogging
         public virtual Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
             return AuditLogAppService.GetListAsync(input);
+        }
+
+        [HttpGet]
+        [Route("export-excel")]
+        public async Task<IActionResult> ExportExcel(GetAuditLogDto input)
+        {
+            var content = await AuditLogAppService.ExportExcel(input);
+            var memoryStream = new MemoryStream(content);
+            return new FileStreamResult(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = "AuditLog.xlsx"
+            };
         }
     }
 }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
 using Volo.Abp.AuditLogging;
+using Wzh.AbpVnext.Volo.Abp.AuditLogging;
 
 namespace Wzh.AbpVnext
 {
@@ -19,7 +20,7 @@ namespace Wzh.AbpVnext
             CreateMap<CreateUpdateArticleCategoryDto, ArticleCategory>(MemberList.Source);
             CreateMap<Article, ArticleDto>();
             CreateMap<CreateUpdateArticleDto, Article>(MemberList.Source);
-
+            CreateMap<Article, ArticleExportDto>();
 
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
@@ -32,6 +33,7 @@ namespace Wzh.AbpVnext
             //AuditLog
             CreateMap<AuditLog, AuditLogDto>()
                 .MapExtraProperties();
+            CreateMap<AuditLog, AuditLogExportDto>();
 
             CreateMap<EntityChange, EntityChangeDto>()
                 .MapExtraProperties();

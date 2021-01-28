@@ -31,6 +31,7 @@ namespace Wzh.AbpVnext.Articles
         {
             await _repository.DeleteAsync(x => ids.Contains(x.Id), true);
         }
+        [Authorize(AbpVnextPermissions.ArticleCategory.Default)]
         public async Task<List<ArticleCategoryDto>> GetTreesAsync()
         {
             var root = await _repository.GetChildrenAsync(null,false);

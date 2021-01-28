@@ -34,6 +34,9 @@ using Microsoft.AspNetCore.Hosting;
 using EasyAbp.FileManagement.Options;
 using EasyAbp.FileManagement.Files;
 using EasyAbp.FileManagement.Containers;
+using Volo.Abp.Timing;
+using System.Globalization;
+using System.Reflection;
 
 namespace Wzh.AbpVnext
 {
@@ -68,7 +71,13 @@ namespace Wzh.AbpVnext
             ConfigureVirtualFileSystem(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
-
+            if (DateTimeFormatInfo.CurrentInfo != null)
+            {
+                var type = DateTimeFormatInfo.CurrentInfo.GetType();
+                var field = type.GetField("generalLongTimePattern", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (field != null)
+                    field.SetValue(DateTimeFormatInfo.CurrentInfo, "yyyy-MM-dd");
+            }
         }
 
         private void ConfigureBundles()
@@ -217,9 +226,9 @@ namespace Wzh.AbpVnext
                     container.MaxByteSizeForEachFile = 5 * 1024 * 1024;
                     container.MaxByteSizeForEachUpload = 10 * 1024 * 1024;
                     container.MaxFileQuantityForEachUpload = 2;
-                    container.AllowOnlyConfiguredFileExtensions = true;
-                    container.FileExtensionsConfiguration.Add(".jpg", true);
-                    container.FileExtensionsConfiguration.Add(".png", true);
+                    container.AllowOnlyConfiguredFileExtensions = false;
+                    //container.FileExtensionsConfiguration.Add(".jpg", true);
+                    //container.FileExtensionsConfiguration.Add(".png", true);
                     // container.FileExtensionsConfiguration.Add(".exe", false);
                     container.GetDownloadInfoTimesLimitEachUserPerMinute = 10;
                 });
