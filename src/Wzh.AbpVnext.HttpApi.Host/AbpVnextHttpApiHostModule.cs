@@ -233,6 +233,19 @@ namespace Wzh.AbpVnext
                     // container.FileExtensionsConfiguration.Add(".exe", false);
                     container.GetDownloadInfoTimesLimitEachUserPerMinute = 10;
                 });
+                options.Containers.Configure<TempFileContainer>(container =>
+                {
+                    container.FileContainerType = FileContainerType.Public;
+                    container.AbpBlobContainerName = BlobContainerNameAttribute.GetContainerName<LocalFileSystemBlobContainer>();
+                    container.AbpBlobDirectorySeparator = "/";
+                    container.RetainUnusedBlobs = false;
+                    container.EnableAutoRename = true;
+                    container.MaxByteSizeForEachFile = 5 * 1024 * 1024;
+                    container.MaxByteSizeForEachUpload = 10 * 1024 * 1024;
+                    container.MaxFileQuantityForEachUpload = 2;
+                    container.AllowOnlyConfiguredFileExtensions = false;
+                    container.GetDownloadInfoTimesLimitEachUserPerMinute = 10;
+                });
             });
 
         }

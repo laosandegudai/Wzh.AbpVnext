@@ -258,3 +258,5 @@ src/Wzh.AbpVnext.IdentityServer/Logs/*
 src/Wzh.AbpVnext.HttpApi.Host/Logs/*
 src/Wzh.AbpVnext.HttpApi.Host/Logs/*
 src/Wzh.AbpVnext.DbMigrator/Logs/*
+my-files
+my-files

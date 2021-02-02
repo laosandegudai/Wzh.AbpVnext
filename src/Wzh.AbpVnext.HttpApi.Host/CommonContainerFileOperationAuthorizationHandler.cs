@@ -9,6 +9,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Wzh.AbpVnext.Blob;
 
 namespace Wzh.AbpVnext
 {
