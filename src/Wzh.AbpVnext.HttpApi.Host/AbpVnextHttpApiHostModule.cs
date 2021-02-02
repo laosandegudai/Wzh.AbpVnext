@@ -37,6 +37,7 @@ using EasyAbp.FileManagement.Containers;
 using Volo.Abp.Timing;
 using System.Globalization;
 using System.Reflection;
+using Wzh.AbpVnext.Blob;
 
 namespace Wzh.AbpVnext
 {

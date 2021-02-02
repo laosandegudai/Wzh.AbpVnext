@@ -5,6 +5,8 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
 using Volo.Abp.AuditLogging;
 using Wzh.AbpVnext.Volo.Abp.AuditLogging;
+using EasyAbp.FileManagement.Files.Dtos;
+using EasyAbp.FileManagement.Files;
 
 namespace Wzh.AbpVnext
 {
@@ -21,6 +23,7 @@ namespace Wzh.AbpVnext
             CreateMap<Article, ArticleDto>();
             CreateMap<CreateUpdateArticleDto, Article>(MemberList.Source);
             CreateMap<Article, ArticleExportDto>();
+            CreateMap<ArticleImportDto, Article>();
 
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
@@ -50,6 +53,8 @@ namespace Wzh.AbpVnext
             CreateMap<IdentityRoleClaimDto, IdentityRoleClaim>().Ignore(x => x.TenantId).Ignore(x => x.Id);
             CreateMap<CreateClaimTypeDto, IdentityClaimType>().Ignore(x => x.IsStatic).Ignore(x => x.Id);
             CreateMap<UpdateClaimTypeDto, IdentityClaimType>().Ignore(x => x.IsStatic).Ignore(x => x.Id);
+
+            CreateMap<FileInfoDto, File>();
         }
 
 

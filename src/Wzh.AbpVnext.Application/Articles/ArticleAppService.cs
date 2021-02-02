@@ -12,6 +12,11 @@ using Magicodes.ExporterAndImporter.Excel;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
+using Magicodes.ExporterAndImporter.Core.Models;
+using Wzh.AbpVnext.Dtos;
+using Volo.Abp.Validation;
+using EasyAbp.FileManagement.Files;
+using EasyAbp.FileManagement.Files.Dtos;
 
 namespace Wzh.AbpVnext.Articles
 {
@@ -25,10 +30,11 @@ namespace Wzh.AbpVnext.Articles
         protected override string DeletePolicyName { get; set; } = AbpVnextPermissions.Article.Delete;
 
         private readonly IArticleRepository _repository;
-        
-        public ArticleAppService(IArticleRepository repository) : base(repository)
+        private readonly IFileAppService _fileService;
+        public ArticleAppService(IArticleRepository repository,IFileAppService fileService) : base(repository)
         {
             _repository = repository;
+            _fileService = fileService;
         }
         protected override IQueryable<Article> CreateFilteredQuery(GetArticleListInput input)
         {
@@ -46,6 +52,49 @@ namespace Wzh.AbpVnext.Articles
             IExporter exporter = new ExcelExporter();
             var content = await exporter.ExportAsByteArray(entityDtos);
             return content;
+        }
+        [RemoteService(false)]
+        public async Task<byte[]> GenerateTemplate()
+        {
+            IImporter Importer = new ExcelImporter();
+            var content = await Importer.GenerateTemplateBytes<ArticleImportDto>();
+            return content;
+        }
+        [RemoteService(false)]
+        public async Task<ImportResultDto> ImportExcel(ImportExcelInput input)
+        {
+            IExcelImporter Importer = new ExcelImporter();
+            var stream = new MemoryStream(input.Bytes);
+            var import = await Importer.Import<ArticleImportDto>(stream);
+            var result = new ImportResultDto
+            {
+                HasError = import.HasError,
+                RowErrors = import.RowErrors,
+                TemplateErrors = import.TemplateErrors,
+            };
+            if (import.HasError)
+            {
+                var newStream= new MemoryStream(stream.ToArray());
+                Importer.OutputBussinessErrorData<ArticleImportDto>(newStream, import.RowErrors.ToList(), out byte[] fileByte);
+                var createFileOutput = await _fileService.CreateAsync(new CreateFileInput
+                {
+                    FileContainerName = "default",
+                    FileName = input.FileName,
+                    MimeType = input.MimeType,
+                    FileType = FileType.RegularFile,
+                    ParentId = null,
+                    OwnerUserId = CurrentUser.Id,
+                    Content = fileByte
+                });
+                result.ErrorFile = createFileOutput;
+                return result;
+            }
+            var entitys = ObjectMapper.Map<List<ArticleImportDto>, List<Article>>(import.Data.ToList());
+            foreach (var entity in entitys)
+            {
+                await _repository.InsertAsync(entity);
+            }
+            return result;
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Volo.Abp.BlobStoring;
 
-namespace Wzh.AbpVnext
+namespace Wzh.AbpVnext.Blob
 {
     [BlobContainerName("local")]
     public class LocalFileSystemBlobContainer

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,7 +48,6 @@ namespace Volo.Abp.AuditLogging
         {
             return AuditLogAppService.GetListAsync(input);
         }
-
         [HttpGet]
         [Route("export-excel")]
         public async Task<IActionResult> ExportExcel(GetAuditLogDto input)

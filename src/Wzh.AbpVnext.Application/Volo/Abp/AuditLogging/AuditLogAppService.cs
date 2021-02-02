@@ -82,6 +82,7 @@ namespace Volo.Abp.AuditLogging
                 await AuditLogRepository.DeleteAsync(id);
             }
         }
+        [AllowAnonymous]
         public async Task<byte[]> ExportExcel(GetAuditLogDto input)
         {
             var list = await AuditLogRepository.GetListAsync(
