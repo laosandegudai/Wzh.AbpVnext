@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Wzh.AbpVnext.Articles
 {
  
-    public class ArticleCategory : AuditedAggregateRoot<Guid>, ITree<ArticleCategory>
+    public class ArticleCategory : FullAuditedAggregateRoot<Guid>, ITree<ArticleCategory>, IMultiTenant
     {
         public ArticleCategory(Guid id)
             : base(id)
@@ -49,6 +50,8 @@ namespace Wzh.AbpVnext.Articles
         /// ×ÓÏî
         /// </summary>
         public virtual ICollection<ArticleCategory> Children { get; set; }
+
+        public Guid? TenantId { get; set; }
 
         protected ArticleCategory()
         {

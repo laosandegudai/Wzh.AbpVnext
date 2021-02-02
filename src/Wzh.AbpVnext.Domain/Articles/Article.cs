@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Wzh.AbpVnext.Articles
 {
-    public class Article : AuditedAggregateRoot<Guid>
+    public class Article : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
         ///标题
@@ -69,6 +70,8 @@ namespace Wzh.AbpVnext.Articles
         /// </summary>
         [Display(Name = "分类")]
         public ArticleCategory Category { get; set; }
+
+        public Guid? TenantId { get; set; }
 
         protected Article()
         {
