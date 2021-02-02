@@ -23,5 +23,6 @@ namespace Wzh.AbpVnext.Articles.Dtos
         [Display(Name = "≈≈–Ú")]
         public int DisplayOrder { get; set; }
         //public ICollection<ArticleCategoryDto> Children { get; set; }
+        public Guid? IconId { get; set; }
     }
 }

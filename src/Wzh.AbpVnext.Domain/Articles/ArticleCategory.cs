@@ -53,6 +53,7 @@ namespace Wzh.AbpVnext.Articles
 
         public Guid? TenantId { get; set; }
 
+        public Guid? IconId { get; set; }
         protected ArticleCategory()
         {
         }
