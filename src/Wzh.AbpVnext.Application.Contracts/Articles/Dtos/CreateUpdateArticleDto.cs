@@ -9,7 +9,7 @@ namespace Wzh.AbpVnext.Articles.Dtos
 
         public string LinkUrl { get; set; }
 
-        public string ImgUrl { get; set; }
+        public Guid? ImgId { get; set; }
 
         public string Tags { get; set; }
 

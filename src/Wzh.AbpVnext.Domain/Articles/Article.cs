@@ -30,7 +30,7 @@ namespace Wzh.AbpVnext.Articles
         /// </summary>
         [Display(Name = "封面图")]
         [MaxLength(510)]
-        public string ImgUrl { get; set; }
+        public Guid? ImgId { get; set; }
 
         /// <summary>
         ///标签
@@ -81,7 +81,7 @@ namespace Wzh.AbpVnext.Articles
             Guid id,
             string title,
             string linkUrl,
-            string imgUrl,
+            Guid? imgId,
             string tags,
             string zhaiYao,
             string content,
@@ -93,7 +93,7 @@ namespace Wzh.AbpVnext.Articles
         {
             Title = title;
             LinkUrl = linkUrl;
-            ImgUrl = imgUrl;
+            ImgId = imgId;
             Tags = tags;
             ZhaiYao = zhaiYao;
             Content = content;

@@ -52,7 +52,7 @@ namespace Wzh.AbpVnext.Articles
         public virtual ICollection<ArticleCategory> Children { get; set; }
 
         public Guid? TenantId { get; set; }
-
+        [Display(Name = "Í¼±ê")]
         public Guid? IconId { get; set; }
         protected ArticleCategory()
         {

@@ -15,8 +15,7 @@ namespace Wzh.AbpVnext.Articles.Dtos
         public string Title { get; set; }
         [ImporterHeader(Name = "外链")]
         public string LinkUrl { get; set; }
-        [ImporterHeader(Name = "封面图")]
-        public string ImgUrl { get; set; }
+        
         [ImporterHeader(Name = "标签")]
         public string Tags { get; set; }
         [ImporterHeader(Name = "摘要")]
