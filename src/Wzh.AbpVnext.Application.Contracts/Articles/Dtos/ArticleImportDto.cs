@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Wzh.AbpVnext.Articles.Dtos
 {
-    [ExcelImporter(IsLabelingError = true)]
+    [ExcelImporter(ImportResultFilter = typeof(ArticleImportResultFilter),IsLabelingError = true)]
     public class ArticleImportDto
     {
         [ImporterHeader(Name = "标题")]
