@@ -17,6 +17,7 @@ using Volo.Abp.Identity.Localization;
 using EasyAbp.Abp.Trees;
 using EasyAbp.FileManagement;
 using EasyAbp.FileManagement.Localization;
+using EasyAbp.NotificationService;
 
 namespace Wzh.AbpVnext
 {
@@ -30,7 +31,8 @@ namespace Wzh.AbpVnext
         typeof(AbpSettingManagementDomainSharedModule),
         typeof(AbpTenantManagementDomainSharedModule),
         typeof(AbpTreesDomainSharedModule),
-        typeof(FileManagementDomainSharedModule)
+        typeof(FileManagementDomainSharedModule),
+        typeof(NotificationServiceDomainSharedModule)
         )]
     public class AbpVnextDomainSharedModule : AbpModule
     {

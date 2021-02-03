@@ -1,4 +1,5 @@
 ﻿using EasyAbp.FileManagement;
+using EasyAbp.NotificationService;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
@@ -19,7 +20,8 @@ namespace Wzh.AbpVnext
         typeof(AbpTenantManagementApplicationModule),
         typeof(AbpFeatureManagementApplicationModule),
         typeof(FileManagementApplicationModule),
-        typeof(AbpBlobStoringModule)
+        typeof(AbpBlobStoringModule),
+        typeof(NotificationServiceApplicationModule)
         )]
     public class AbpVnextApplicationModule : AbpModule
     {

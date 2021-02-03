@@ -14,6 +14,7 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using EasyAbp.FileManagement.EntityFrameworkCore;
 using EasyAbp.Abp.Trees.EntityFrameworkCore;
+using EasyAbp.NotificationService.EntityFrameworkCore;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
@@ -29,7 +30,8 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
         typeof(AbpTreesEntityFrameworkCoreModule),
-        typeof(FileManagementEntityFrameworkCoreModule)
+        typeof(FileManagementEntityFrameworkCoreModule),
+        typeof(NotificationServiceEntityFrameworkCoreModule)
         )]
     public class AbpVnextEntityFrameworkCoreModule : AbpModule
     {

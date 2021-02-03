@@ -1,4 +1,5 @@
 ﻿using EasyAbp.FileManagement.EntityFrameworkCore;
+using EasyAbp.NotificationService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -45,6 +46,7 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
 
             builder.ConfigureAbpVnext();
             builder.ConfigureFileManagement();
+            builder.ConfigureNotificationService();
         }
     }
 }
