@@ -1,6 +1,7 @@
 ﻿using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
+using EasyAbp.WeChatManagement.MiniPrograms;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
@@ -23,7 +24,8 @@ namespace Wzh.AbpVnext
         typeof(FileManagementApplicationModule),
         typeof(AbpBlobStoringModule),
         typeof(NotificationServiceApplicationModule),
-        typeof(AbpPhoneNumberLoginApplicationModule)
+        typeof(AbpPhoneNumberLoginApplicationModule),
+        typeof(WeChatManagementMiniProgramsApplicationModule)
         )]
     public class AbpVnextApplicationModule : AbpModule
     {

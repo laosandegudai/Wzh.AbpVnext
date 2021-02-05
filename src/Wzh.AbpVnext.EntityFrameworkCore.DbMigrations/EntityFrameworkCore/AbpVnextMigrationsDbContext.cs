@@ -1,6 +1,7 @@
 ﻿using EasyAbp.Abp.PhoneNumberLogin.EntityFrameworkCore;
 using EasyAbp.FileManagement.EntityFrameworkCore;
 using EasyAbp.NotificationService.EntityFrameworkCore;
+using EasyAbp.WeChatManagement.MiniPrograms.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -49,6 +50,7 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
             builder.ConfigureFileManagement();
             builder.ConfigureNotificationService();
             builder.ConfigurePhoneNumberLogin();
+            builder.ConfigureWeChatManagementMiniPrograms();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
+using EasyAbp.WeChatManagement.MiniPrograms;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -20,7 +21,8 @@ namespace Wzh.AbpVnext
         typeof(AbpFeatureManagementHttpApiClientModule),
         typeof(FileManagementHttpApiClientModule),
         typeof(NotificationServiceHttpApiClientModule),
-        typeof(AbpPhoneNumberLoginHttpApiClientModule)
+        typeof(AbpPhoneNumberLoginHttpApiClientModule),
+        typeof(WeChatManagementMiniProgramsHttpApiClientModule)
     )]
     public class AbpVnextHttpApiClientModule : AbpModule
     {

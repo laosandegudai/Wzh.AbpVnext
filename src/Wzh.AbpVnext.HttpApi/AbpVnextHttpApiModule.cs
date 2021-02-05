@@ -11,6 +11,7 @@ using EasyAbp.FileManagement;
 using Volo.Abp.BlobStoring;
 using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.WeChatManagement.MiniPrograms;
 
 namespace Wzh.AbpVnext
 {
@@ -24,7 +25,8 @@ namespace Wzh.AbpVnext
         typeof(FileManagementHttpApiModule),
         typeof(AbpBlobStoringModule),
         typeof(NotificationServiceHttpApiModule),
-        typeof(AbpPhoneNumberLoginHttpApiModule)
+        typeof(AbpPhoneNumberLoginHttpApiModule),
+        typeof(WeChatManagementMiniProgramsHttpApiModule)
         )]
     public class AbpVnextHttpApiModule : AbpModule
     {

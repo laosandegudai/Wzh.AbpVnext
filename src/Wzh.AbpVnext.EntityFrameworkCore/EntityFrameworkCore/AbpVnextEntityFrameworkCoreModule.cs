@@ -16,6 +16,7 @@ using EasyAbp.FileManagement.EntityFrameworkCore;
 using EasyAbp.Abp.Trees.EntityFrameworkCore;
 using EasyAbp.NotificationService.EntityFrameworkCore;
 using EasyAbp.Abp.PhoneNumberLogin.EntityFrameworkCore;
+using EasyAbp.WeChatManagement.MiniPrograms.EntityFrameworkCore;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
@@ -33,7 +34,8 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
         typeof(AbpTreesEntityFrameworkCoreModule),
         typeof(FileManagementEntityFrameworkCoreModule),
         typeof(NotificationServiceEntityFrameworkCoreModule),
-        typeof(AbpPhoneNumberLoginEntityFrameworkCoreModule)
+        typeof(AbpPhoneNumberLoginEntityFrameworkCoreModule),
+        typeof(WeChatManagementMiniProgramsEntityFrameworkCoreModule)
         )]
     public class AbpVnextEntityFrameworkCoreModule : AbpModule
     {

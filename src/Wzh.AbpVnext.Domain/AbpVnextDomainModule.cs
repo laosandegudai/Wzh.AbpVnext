@@ -17,6 +17,7 @@ using EasyAbp.Abp.Trees;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.WeChatManagement.MiniPrograms;
 
 namespace Wzh.AbpVnext
 {
@@ -35,7 +36,8 @@ namespace Wzh.AbpVnext
         typeof(AbpTreesDomainModule),
         typeof(FileManagementDomainModule),
         typeof(NotificationServiceDomainModule),
-        typeof(AbpPhoneNumberLoginDomainModule)
+        typeof(AbpPhoneNumberLoginDomainModule),
+        typeof(WeChatManagementMiniProgramsDomainModule)
     )]
     public class AbpVnextDomainModule : AbpModule
     {
