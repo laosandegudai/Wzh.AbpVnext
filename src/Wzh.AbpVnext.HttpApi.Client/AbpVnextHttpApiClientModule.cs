@@ -1,4 +1,5 @@
-﻿using EasyAbp.FileManagement;
+﻿using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
@@ -18,7 +19,8 @@ namespace Wzh.AbpVnext
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpFeatureManagementHttpApiClientModule),
         typeof(FileManagementHttpApiClientModule),
-        typeof(NotificationServiceHttpApiClientModule)
+        typeof(NotificationServiceHttpApiClientModule),
+        typeof(AbpPhoneNumberLoginHttpApiClientModule)
     )]
     public class AbpVnextHttpApiClientModule : AbpModule
     {

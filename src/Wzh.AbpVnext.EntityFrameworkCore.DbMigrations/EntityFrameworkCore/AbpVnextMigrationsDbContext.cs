@@ -1,4 +1,5 @@
-﻿using EasyAbp.FileManagement.EntityFrameworkCore;
+﻿using EasyAbp.Abp.PhoneNumberLogin.EntityFrameworkCore;
+using EasyAbp.FileManagement.EntityFrameworkCore;
 using EasyAbp.NotificationService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
             builder.ConfigureAbpVnext();
             builder.ConfigureFileManagement();
             builder.ConfigureNotificationService();
+            builder.ConfigurePhoneNumberLogin();
         }
     }
 }

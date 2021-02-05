@@ -18,6 +18,7 @@ using EasyAbp.Abp.Trees;
 using EasyAbp.FileManagement;
 using EasyAbp.FileManagement.Localization;
 using EasyAbp.NotificationService;
+using EasyAbp.Abp.PhoneNumberLogin;
 
 namespace Wzh.AbpVnext
 {
@@ -32,7 +33,8 @@ namespace Wzh.AbpVnext
         typeof(AbpTenantManagementDomainSharedModule),
         typeof(AbpTreesDomainSharedModule),
         typeof(FileManagementDomainSharedModule),
-        typeof(NotificationServiceDomainSharedModule)
+        typeof(NotificationServiceDomainSharedModule),
+        typeof(AbpPhoneNumberLoginDomainSharedModule)
         )]
     public class AbpVnextDomainSharedModule : AbpModule
     {
@@ -59,10 +61,10 @@ namespace Wzh.AbpVnext
                 options.DefaultResourceType = typeof(AbpVnextResource);
                 options.Resources
                     .Get<IdentityResource>()
-                    .AddVirtualJson("/Volo/Abp/Identity/Localization/AbpVnext");
+                    .AddVirtualJson("/Localization/Identity");
                 options.Resources
                     .Get<AuditLoggingResource>()
-                    .AddVirtualJson("/Volo/Abp/AuditLogging/Localization");
+                    .AddVirtualJson("/Localization/AuditLogging");
                 options.Resources
                     .Get<FileManagementResource>()
                     .AddVirtualJson("/Localization/FileManagement");

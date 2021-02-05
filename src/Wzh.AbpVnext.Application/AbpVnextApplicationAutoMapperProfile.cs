@@ -4,9 +4,10 @@ using AutoMapper;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
 using Volo.Abp.AuditLogging;
-using Wzh.AbpVnext.Volo.Abp.AuditLogging;
 using EasyAbp.FileManagement.Files.Dtos;
 using EasyAbp.FileManagement.Files;
+using Wzh.AbpVnext.Identity;
+using Wzh.AbpVnext.AuditLogging;
 
 namespace Wzh.AbpVnext
 {

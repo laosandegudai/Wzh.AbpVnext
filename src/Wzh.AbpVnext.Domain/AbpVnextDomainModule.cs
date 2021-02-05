@@ -16,6 +16,7 @@ using Volo.Abp.TenantManagement;
 using EasyAbp.Abp.Trees;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
+using EasyAbp.Abp.PhoneNumberLogin;
 
 namespace Wzh.AbpVnext
 {
@@ -33,7 +34,8 @@ namespace Wzh.AbpVnext
         typeof(AbpEmailingModule),
         typeof(AbpTreesDomainModule),
         typeof(FileManagementDomainModule),
-        typeof(NotificationServiceDomainModule)
+        typeof(NotificationServiceDomainModule),
+        typeof(AbpPhoneNumberLoginDomainModule)
     )]
     public class AbpVnextDomainModule : AbpModule
     {

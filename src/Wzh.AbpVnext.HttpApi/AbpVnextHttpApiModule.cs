@@ -10,6 +10,7 @@ using Volo.Abp.TenantManagement;
 using EasyAbp.FileManagement;
 using Volo.Abp.BlobStoring;
 using EasyAbp.NotificationService;
+using EasyAbp.Abp.PhoneNumberLogin;
 
 namespace Wzh.AbpVnext
 {
@@ -22,7 +23,8 @@ namespace Wzh.AbpVnext
         typeof(AbpFeatureManagementHttpApiModule),
         typeof(FileManagementHttpApiModule),
         typeof(AbpBlobStoringModule),
-        typeof(NotificationServiceHttpApiModule)
+        typeof(NotificationServiceHttpApiModule),
+        typeof(AbpPhoneNumberLoginHttpApiModule)
         )]
     public class AbpVnextHttpApiModule : AbpModule
     {

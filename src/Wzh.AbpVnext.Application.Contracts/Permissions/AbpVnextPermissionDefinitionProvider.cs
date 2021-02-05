@@ -5,6 +5,8 @@ using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.Localization;
+using Wzh.AbpVnext.Identity;
+using Wzh.AbpVnext.AuditLogging;
 
 namespace Wzh.AbpVnext.Permissions
 {

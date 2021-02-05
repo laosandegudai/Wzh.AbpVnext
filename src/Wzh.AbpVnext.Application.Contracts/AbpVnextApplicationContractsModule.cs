@@ -1,4 +1,5 @@
-﻿using EasyAbp.FileManagement;
+﻿using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -19,7 +20,8 @@ namespace Wzh.AbpVnext
         typeof(AbpTenantManagementApplicationContractsModule),
         typeof(AbpObjectExtendingModule),
         typeof(FileManagementApplicationContractsModule),
-        typeof(NotificationServiceApplicationContractsModule)
+        typeof(NotificationServiceApplicationContractsModule),
+        typeof(AbpPhoneNumberLoginApplicationContractsModule)
     )]
     public class AbpVnextApplicationContractsModule : AbpModule
     {
