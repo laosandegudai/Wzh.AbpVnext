@@ -17,12 +17,12 @@
     <PackageReference Include="EasyAbp.NotificationService.Application.Contracts" Version="0.2.1" />
     <PackageReference Include="EasyAbp.WeChatManagement.MiniPrograms.Application.Contracts" Version="0.10.6" />
     <PackageReference Include="Magicodes.IE.Excel" Version="2.5.1.6" />
-    <PackageReference Include="Volo.Abp.ObjectExtending" Version="4.0.2" />
-    <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="4.0.2" />
-    <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="4.0.2" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="4.0.2" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="4.0.2" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="4.0.2" />
+    <PackageReference Include="Volo.Abp.ObjectExtending" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="4.2.1" />
   </ItemGroup>
 
 </Project>

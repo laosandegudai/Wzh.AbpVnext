@@ -14,10 +14,10 @@ namespace Wzh.AbpVnext.Identity
     [Authorize(WzhIdentityPermissions.ClaimTypes.Default)]
     public class IdentityClaimTypeAppService : IdentityAppServiceBase, IIdentityClaimTypeAppService
     {
-        protected IdenityClaimTypeManager IdenityClaimTypeManager { get; }
+        protected IdentityClaimTypeManager IdenityClaimTypeManager { get; }
         protected IIdentityClaimTypeRepository IdentityClaimTypeRepository { get; }
 
-        public IdentityClaimTypeAppService(IdenityClaimTypeManager idenityClaimTypeManager, IIdentityClaimTypeRepository identityClaimTypeRepository)
+        public IdentityClaimTypeAppService(IdentityClaimTypeManager idenityClaimTypeManager, IIdentityClaimTypeRepository identityClaimTypeRepository)
         {
             IdenityClaimTypeManager = idenityClaimTypeManager;
             IdentityClaimTypeRepository = identityClaimTypeRepository;
