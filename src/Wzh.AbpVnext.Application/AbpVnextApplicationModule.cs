@@ -1,4 +1,4 @@
-﻿using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using EasyAbp.WeChatManagement.MiniPrograms;
@@ -10,6 +10,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
+using EasyAbp.Abp.SettingUi;
 
 namespace Wzh.AbpVnext
 {
@@ -27,6 +28,7 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginApplicationModule),
         typeof(WeChatManagementMiniProgramsApplicationModule)
         )]
+    [DependsOn(typeof(SettingUiApplicationModule))]
     public class AbpVnextApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

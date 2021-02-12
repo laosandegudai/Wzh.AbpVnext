@@ -1,4 +1,4 @@
-﻿using Localization.Resources.AbpUi;
+using Localization.Resources.AbpUi;
 using Wzh.AbpVnext.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -12,6 +12,7 @@ using Volo.Abp.BlobStoring;
 using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.WeChatManagement.MiniPrograms;
+using EasyAbp.Abp.SettingUi;
 
 namespace Wzh.AbpVnext
 {
@@ -28,6 +29,7 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginHttpApiModule),
         typeof(WeChatManagementMiniProgramsHttpApiModule)
         )]
+    [DependsOn(typeof(SettingUiHttpApiModule))]
     public class AbpVnextHttpApiModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

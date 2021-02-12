@@ -1,4 +1,4 @@
-﻿using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using EasyAbp.WeChatManagement.MiniPrograms;
@@ -9,6 +9,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
+using EasyAbp.Abp.SettingUi;
 
 namespace Wzh.AbpVnext
 {
@@ -24,6 +25,7 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginHttpApiClientModule),
         typeof(WeChatManagementMiniProgramsHttpApiClientModule)
     )]
+    [DependsOn(typeof(SettingUiHttpApiClientModule))]
     public class AbpVnextHttpApiClientModule : AbpModule
     {
         public const string RemoteServiceName = "Default";

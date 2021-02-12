@@ -1,4 +1,4 @@
-﻿using Wzh.AbpVnext.Localization;
+using Wzh.AbpVnext.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -20,6 +20,8 @@ using EasyAbp.FileManagement.Localization;
 using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.WeChatManagement.MiniPrograms;
+using EasyAbp.Abp.SettingUi;
+using EasyAbp.Abp.SettingUi.Localization;
 
 namespace Wzh.AbpVnext
 {
@@ -38,6 +40,7 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginDomainSharedModule),
         typeof(WeChatManagementMiniProgramsDomainSharedModule)
         )]
+    [DependsOn(typeof(SettingUiDomainSharedModule))]
     public class AbpVnextDomainSharedModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -70,6 +73,9 @@ namespace Wzh.AbpVnext
                 options.Resources
                     .Get<FileManagementResource>()
                     .AddVirtualJson("/Localization/FileManagement");
+                options.Resources
+                    .Get<SettingUiResource>()
+                    .AddVirtualJson("/Localization/AbpVnext");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
