@@ -26,9 +26,9 @@ namespace Wzh.AbpVnext
         typeof(AbpBlobStoringModule),
         typeof(NotificationServiceApplicationModule),
         typeof(AbpPhoneNumberLoginApplicationModule),
-        typeof(WeChatManagementMiniProgramsApplicationModule)
+        typeof(WeChatManagementMiniProgramsApplicationModule),
+        typeof(SettingUiApplicationModule)
         )]
-    [DependsOn(typeof(SettingUiApplicationModule))]
     public class AbpVnextApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

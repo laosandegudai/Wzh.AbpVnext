@@ -32,13 +32,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Localization\AuditLogging\en.json" />
+    <None Remove="Localization\FileManagement\en.json" />
     <None Remove="Localization\FileManagement\zh-Hans.json" />
+    <None Remove="Localization\Identity\en.json" />
+    <None Remove="Localization\NotificationService\en.json" />
+    <None Remove="Localization\NotificationService\zh-Hans.json" />
+    <None Remove="Localization\WeChatManagement\en.json" />
+    <None Remove="Localization\WeChatManagement\zh-Hans.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Localization\AuditLogging\en.json" />
+    <EmbeddedResource Include="Localization\FileManagement\en.json" />
     <EmbeddedResource Include="Localization\FileManagement\zh-Hans.json" />
     <EmbeddedResource Include="Localization\AuditLogging\zh-Hans.json" />
+    <EmbeddedResource Include="Localization\Identity\en.json" />
     <EmbeddedResource Include="Localization\Identity\zh-Hans.json" />
+    <EmbeddedResource Include="Localization\NotificationService\en.json" />
+    <EmbeddedResource Include="Localization\NotificationService\zh-Hans.json" />
+    <EmbeddedResource Include="Localization\WeChatManagement\MiniPrograms\en.json" />
+    <EmbeddedResource Include="Localization\WeChatManagement\MiniPrograms\zh-Hans.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,10 +64,6 @@
     <EmbeddedResource Update="Localization\AbpVnext\zh-Hans.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NotificationService\Notifications\" />
   </ItemGroup>
 
 </Project>

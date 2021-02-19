@@ -23,9 +23,9 @@ namespace Wzh.AbpVnext
         typeof(FileManagementHttpApiClientModule),
         typeof(NotificationServiceHttpApiClientModule),
         typeof(AbpPhoneNumberLoginHttpApiClientModule),
-        typeof(WeChatManagementMiniProgramsHttpApiClientModule)
+        typeof(WeChatManagementMiniProgramsHttpApiClientModule),
+        typeof(SettingUiHttpApiClientModule)
     )]
-    [DependsOn(typeof(SettingUiHttpApiClientModule))]
     public class AbpVnextHttpApiClientModule : AbpModule
     {
         public const string RemoteServiceName = "Default";

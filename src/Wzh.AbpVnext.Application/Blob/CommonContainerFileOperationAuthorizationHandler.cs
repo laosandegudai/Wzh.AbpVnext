@@ -36,14 +36,15 @@ namespace Wzh.AbpVnext.Blob
         protected override async Task HandleGetDownloadInfoAsync(AuthorizationHandlerContext context, OperationAuthorizationRequirement requirement,
             FileOperationInfoModel resource)
         {
-            if (_clock.Now <= resource.File.CreationTime + TimeSpan.FromDays(7))
-            {
-                context.Succeed(requirement);    // Everyone can download in 7 days from the file was uploaded.
-                return;
-            }
 
-            context.Fail();
+            //if (_clock.Now <= resource.File.CreationTime + TimeSpan.FromDays(7))
+            //{
+            //    context.Succeed(requirement);    // Everyone can download in 7 days from the file was uploaded.
+            //    return;
+            //}
 
+            //context.Fail();
+            context.Succeed(requirement);
             await Task.CompletedTask;
         }
 

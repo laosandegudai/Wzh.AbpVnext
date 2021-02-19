@@ -22,6 +22,8 @@ using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.WeChatManagement.MiniPrograms;
 using EasyAbp.Abp.SettingUi;
 using EasyAbp.Abp.SettingUi.Localization;
+using EasyAbp.NotificationService.Localization;
+using EasyAbp.WeChatManagement.MiniPrograms.Localization;
 
 namespace Wzh.AbpVnext
 {
@@ -38,9 +40,9 @@ namespace Wzh.AbpVnext
         typeof(FileManagementDomainSharedModule),
         typeof(NotificationServiceDomainSharedModule),
         typeof(AbpPhoneNumberLoginDomainSharedModule),
-        typeof(WeChatManagementMiniProgramsDomainSharedModule)
+        typeof(WeChatManagementMiniProgramsDomainSharedModule),
+        typeof(SettingUiDomainSharedModule)
         )]
-    [DependsOn(typeof(SettingUiDomainSharedModule))]
     public class AbpVnextDomainSharedModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -76,6 +78,12 @@ namespace Wzh.AbpVnext
                 options.Resources
                     .Get<SettingUiResource>()
                     .AddVirtualJson("/Localization/AbpVnext");
+                options.Resources
+                    .Get<NotificationServiceResource>()
+                    .AddVirtualJson("/Localization/NotificationService");
+                options.Resources
+                    .Get<MiniProgramsResource>()
+                    .AddVirtualJson("/Localization/WeChatManagement/MiniPrograms");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
