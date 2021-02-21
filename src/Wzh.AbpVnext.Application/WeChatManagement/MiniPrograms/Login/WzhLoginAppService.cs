@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using EasyAbp.Abp.WeChat;
+using EasyAbp.Abp.WeChat.Common.Exceptions;
 using EasyAbp.Abp.WeChat.MiniProgram;
 using EasyAbp.Abp.WeChat.MiniProgram.Infrastructure;
 using EasyAbp.Abp.WeChat.MiniProgram.Services.ACode;
@@ -39,7 +42,7 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
     [RemoteService(IsEnabled = false)]
     [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(ILoginAppService))]
-    public class WzhLoginAppService : MiniProgramsAppService, ILoginAppService
+    public class WzhLoginAppService : MiniProgramsAppService, ILoginAppService, IWzhLoginAppService
     {
         protected virtual string BindPolicyName { get; set; }
 
@@ -61,7 +64,6 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly IdentityUserManager _identityUserManager;
         private readonly IMiniProgramRepository _miniProgramRepository;
-
         public WzhLoginAppService(
             LoginService loginService,
             ACodeService aCodeService,
@@ -101,7 +103,6 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             _identityUserManager = identityUserManager;
             _miniProgramRepository = miniProgramRepository;
         }
-
         [Authorize]
         public virtual async Task BindAsync(LoginInput input)
         {
@@ -427,5 +428,27 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
 
             return new PcLoginOutput { IsSuccess = true };
         }
+        public virtual async Task<PcCodeLoginOutput> PcCodeLoginAsync(PcLoginInput input)
+        {
+            await _identityOptions.SetAsync();
+
+            var cacheItem = await _pcLoginAuthorizationCache.GetAsync(input.Token);
+
+            if (cacheItem == null)
+            {
+                return new PcCodeLoginOutput { IsSuccess = false };
+            }
+
+            await _pcLoginAuthorizationCache.RemoveAsync(input.Token);
+
+            var user = await _identityUserManager.GetByIdAsync(cacheItem.UserId);
+
+            await _signInManager.SignInAsync(user, false);
+            var miniProgramUser = await _miniProgramUserRepository.GetAsync(x => x.Id == user.Id);
+            var miniProgram = await _miniProgramRepository.GetAsync(x => x.Id == miniProgramUser.MiniProgramId);
+            var rawData = await RequestIds4LoginAsync(miniProgram.AppId, miniProgramUser.UnionId, miniProgramUser.OpenId);
+            return new PcCodeLoginOutput { IsSuccess = true,RawData= rawData.Raw };
+        }
+
     }
 }
