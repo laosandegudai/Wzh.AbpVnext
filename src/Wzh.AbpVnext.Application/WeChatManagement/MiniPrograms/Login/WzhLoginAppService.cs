@@ -41,7 +41,7 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
 {
     [RemoteService(IsEnabled = false)]
     [Dependency(ReplaceServices = true)]
-    [ExposeServices(typeof(ILoginAppService))]
+    
     public class WzhLoginAppService : MiniProgramsAppService, ILoginAppService, IWzhLoginAppService
     {
         protected virtual string BindPolicyName { get; set; }
@@ -444,10 +444,10 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             var user = await _identityUserManager.GetByIdAsync(cacheItem.UserId);
 
             await _signInManager.SignInAsync(user, false);
-            var miniProgramUser = await _miniProgramUserRepository.GetAsync(x => x.Id == user.Id);
+            var miniProgramUser = await _miniProgramUserRepository.GetAsync(x => x.UserId == user.Id);
             var miniProgram = await _miniProgramRepository.GetAsync(x => x.Id == miniProgramUser.MiniProgramId);
             var rawData = await RequestIds4LoginAsync(miniProgram.AppId, miniProgramUser.UnionId, miniProgramUser.OpenId);
-            return new PcCodeLoginOutput { IsSuccess = true,RawData= rawData.Raw };
+            return new PcCodeLoginOutput { IsSuccess = true,RawData= rawData?.Raw };
         }
 
     }
