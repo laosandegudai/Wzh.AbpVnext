@@ -36,16 +36,17 @@ namespace Wzh.AbpVnext.Articles
             _repository = repository;
             _fileService = fileService;
         }
-        protected override IQueryable<Article> CreateFilteredQuery(GetArticleListInput input)
+        protected override async Task<IQueryable<Article>> CreateFilteredQueryAsync(GetArticleListInput input)
         {
-            return ReadOnlyRepository.WithDetails()
+            var query = await ReadOnlyRepository.WithDetailsAsync();
+            return query
                 .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter))
                 .WhereIf(input.CategoryId != null, x => x.CategoryId == input.CategoryId);
         }
         [RemoteService(false)]
         public async Task<byte[]> ExportExcel(GetArticleListInput input)
         {
-            var query = CreateFilteredQuery(input);
+            var query = await CreateFilteredQueryAsync(input);
             query = ApplySorting(query, input);
             var entities = await AsyncExecuter.ToListAsync(query);
             var entityDtos = ObjectMapper.Map<List<Article>, List<ArticleExportDto>>(entities);

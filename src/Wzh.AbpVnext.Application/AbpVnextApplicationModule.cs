@@ -15,6 +15,7 @@ using EasyAbp.Abp.SettingUi;
 namespace Wzh.AbpVnext
 {
     [DependsOn(
+
         typeof(AbpVnextDomainModule),
         typeof(AbpAccountApplicationModule),
         typeof(AbpVnextApplicationContractsModule),

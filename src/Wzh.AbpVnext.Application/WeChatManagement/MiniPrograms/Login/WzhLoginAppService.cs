@@ -45,6 +45,7 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
     public class WzhLoginAppService : MiniProgramsAppService, ILoginAppService, IWzhLoginAppService
     {
         protected virtual string BindPolicyName { get; set; }
+        protected virtual string UnbindPolicyName { get; set; }
 
         private readonly LoginService _loginService;
         private readonly ACodeService _aCodeService;
@@ -450,5 +451,52 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             return new PcCodeLoginOutput { IsSuccess = true,RawData= rawData?.Raw };
         }
 
+        [Authorize]
+        public virtual async Task UnbindAsync(LoginInput input)
+        {
+            await CheckUnbindPolicyAsync();
+
+            var loginResult = await GetLoginResultAsync(input);
+
+            using var tenantChange = CurrentTenant.Change(loginResult.MiniProgram.TenantId);
+
+            await _identityOptions.SetAsync();
+
+            if (await _identityUserManager.FindByLoginAsync(loginResult.LoginProvider, loginResult.ProviderKey) == null)
+            {
+                throw new WechatAccountHasNotBeenBoundException();
+            }
+
+            var identityUser = await _identityUserManager.GetByIdAsync(CurrentUser.GetId());
+
+            (await _identityUserManager.RemoveLoginAsync(identityUser, loginResult.LoginProvider, loginResult.ProviderKey)).CheckErrors();
+
+            await RemoveMiniProgramUserAsync(identityUser, loginResult.MiniProgram);
+
+            if (!await _miniProgramUserRepository.AnyAsync(x => x.UserId == identityUser.Id))
+            {
+                await RemoveUserInfoAsync(identityUser);
+            }
+        }
+        protected virtual async Task CheckUnbindPolicyAsync()
+        {
+            await CheckPolicyAsync(UnbindPolicyName);
+        }
+        protected virtual async Task RemoveMiniProgramUserAsync(IdentityUser identityUser, MiniProgram miniProgram)
+        {
+            var mpUserMapping = await _miniProgramUserRepository.GetAsync(x =>
+                x.MiniProgramId == miniProgram.Id && x.UserId == identityUser.Id);
+
+            await _miniProgramUserRepository.DeleteAsync(mpUserMapping, true);
+        }
+        protected virtual async Task RemoveUserInfoAsync(IdentityUser identityUser)
+        {
+            var userInfo = await _userInfoRepository.FindAsync(x => x.UserId == identityUser.Id);
+
+            if (userInfo != null)
+            {
+                await _userInfoRepository.DeleteAsync(userInfo, true);
+            }
+        }
     }
 }
