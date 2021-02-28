@@ -73,7 +73,7 @@ namespace Wzh.AbpVnext.Articles
                 RowErrors = import.RowErrors,
                 TemplateErrors = import.TemplateErrors,
             };
-            if (import.HasError)
+            if (import.RowErrors!=null&& import.RowErrors.Count>0)
             {
                 var newStream= new MemoryStream(stream.ToArray());
                 Importer.OutputBussinessErrorData<ArticleImportDto>(newStream, import.RowErrors.ToList(), out byte[] fileByte);
@@ -91,10 +91,7 @@ namespace Wzh.AbpVnext.Articles
                 return result;
             }
             var entitys = ObjectMapper.Map<List<ArticleImportDto>, List<Article>>(import.Data.ToList());
-            foreach (var entity in entitys)
-            {
-                await _repository.InsertAsync(entity);
-            }
+            await _repository.InsertManyAsync(entitys);
             return result;
         }
     }
