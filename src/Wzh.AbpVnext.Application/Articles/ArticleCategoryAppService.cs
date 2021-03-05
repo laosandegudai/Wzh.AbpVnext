@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace Wzh.AbpVnext.Articles
 {
+    [Authorize(AbpVnextPermissions.ArticleCategory.Default)]
     public class ArticleCategoryAppService : CrudAppService<ArticleCategory, ArticleCategoryDto, Guid, GetArticleCategoryListInput, CreateUpdateArticleCategoryDto, CreateUpdateArticleCategoryDto>,
         IArticleCategoryAppService
     {
@@ -29,7 +30,7 @@ namespace Wzh.AbpVnext.Articles
         [Authorize(AbpVnextPermissions.ArticleCategory.Delete)]
         public async Task DeleteAsync(List<Guid> ids)
         {
-            await _repository.DeleteAsync(x => ids.Contains(x.Id), true);
+            await _repository.DeleteAsync(x => ids.Contains(x.Id));
         }
         [Authorize(AbpVnextPermissions.ArticleCategory.Default)]
         public async Task<List<ArticleCategoryDto>> GetTreesAsync()

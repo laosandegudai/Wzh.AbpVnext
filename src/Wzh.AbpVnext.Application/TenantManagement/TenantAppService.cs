@@ -18,6 +18,7 @@ namespace Wzh.AbpVnext.TenantManagement
         {
             TenantStore = tenantStore;
         }
+        [RemoteService(IsMetadataEnabled = false)]
         public async Task TenantSwitchAsync(TenantSwitchInput input)
         {
             if (input.Name.IsNullOrEmpty())

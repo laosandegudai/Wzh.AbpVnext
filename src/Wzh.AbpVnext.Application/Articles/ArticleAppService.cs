@@ -20,6 +20,7 @@ using EasyAbp.FileManagement.Files.Dtos;
 
 namespace Wzh.AbpVnext.Articles
 {
+    [Authorize(AbpVnextPermissions.Article.Default)]
     public class ArticleAppService : CrudAppService<Article, ArticleDto, Guid, GetArticleListInput, CreateUpdateArticleDto, CreateUpdateArticleDto>,
         IArticleAppService
     {
@@ -42,6 +43,11 @@ namespace Wzh.AbpVnext.Articles
             return query
                 .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter))
                 .WhereIf(input.CategoryId != null, x => x.CategoryId == input.CategoryId);
+        }
+        [Authorize(AbpVnextPermissions.Article.Delete)]
+        public async Task DeleteAsync(List<Guid> ids)
+        {
+            await _repository.DeleteAsync(x => ids.Contains(x.Id));
         }
         [RemoteService(false)]
         public async Task<byte[]> ExportExcel(GetArticleListInput input)

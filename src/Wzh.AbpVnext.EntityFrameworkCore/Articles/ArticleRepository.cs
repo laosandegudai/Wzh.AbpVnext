@@ -4,6 +4,7 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Wzh.AbpVnext.Articles
 {
@@ -12,9 +13,10 @@ namespace Wzh.AbpVnext.Articles
         public ArticleRepository(IDbContextProvider<AbpVnextDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
-        public override IQueryable<Article> WithDetails()
+        public override async Task<IQueryable<Article>> WithDetailsAsync()
         {
-            return GetQueryable().Include(x => x.Category);
+            var query = await GetQueryableAsync();
+            return query.Include(x => x.Category);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Wzh.AbpVnext.Articles
             CreateUpdateArticleDto,
             CreateUpdateArticleDto>
     {
+        Task DeleteAsync(List<Guid> ids);
         Task<byte[]> ExportExcel(GetArticleListInput input);
         Task<byte[]> GenerateTemplate();
         Task<ImportResultDto> ImportExcel(ImportExcelInput input);
