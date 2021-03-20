@@ -129,7 +129,35 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             await UpdateMiniProgramUserAsync(identityUser, loginResult.MiniProgram, loginResult.UnionId,
                 loginResult.Code2SessionResponse.OpenId, loginResult.Code2SessionResponse.SessionKey);
 
-            await UpdateUserInfoAsync(identityUser, input.UserInfo);
+            await TryCreateUserInfoAsync(identityUser, input.UserInfo);
+        }
+
+        [Authorize]
+        public virtual async Task UnbindAsync(LoginInput input)
+        {
+            await CheckUnbindPolicyAsync();
+
+            var loginResult = await GetLoginResultAsync(input);
+
+            using var tenantChange = CurrentTenant.Change(loginResult.MiniProgram.TenantId);
+
+            await _identityOptions.SetAsync();
+
+            if (await _identityUserManager.FindByLoginAsync(loginResult.LoginProvider, loginResult.ProviderKey) == null)
+            {
+                throw new WechatAccountHasNotBeenBoundException();
+            }
+
+            var identityUser = await _identityUserManager.GetByIdAsync(CurrentUser.GetId());
+
+            (await _identityUserManager.RemoveLoginAsync(identityUser, loginResult.LoginProvider, loginResult.ProviderKey)).CheckErrors();
+
+            await RemoveMiniProgramUserAsync(identityUser, loginResult.MiniProgram);
+
+            if (!await _miniProgramUserRepository.AnyAsync(x => x.UserId == identityUser.Id))
+            {
+                await RemoveUserInfoAsync(identityUser);
+            }
         }
 
         public virtual async Task<LoginOutput> LoginAsync(LoginInput input)
@@ -150,7 +178,7 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
                 await UpdateMiniProgramUserAsync(identityUser, loginResult.MiniProgram, loginResult.UnionId,
                     loginResult.Code2SessionResponse.OpenId, loginResult.Code2SessionResponse.SessionKey);
 
-                await UpdateUserInfoAsync(identityUser, input.UserInfo);
+                await TryCreateUserInfoAsync(identityUser, input.UserInfo);
 
                 await uow.CompleteAsync();
             }
@@ -166,6 +194,11 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
         protected virtual async Task CheckBindPolicyAsync()
         {
             await CheckPolicyAsync(BindPolicyName);
+        }
+
+        protected virtual async Task CheckUnbindPolicyAsync()
+        {
+            await CheckPolicyAsync(UnbindPolicyName);
         }
 
         protected virtual async Task<LoginResultInfoModel> GetLoginResultAsync(LoginInput input)
@@ -286,7 +319,15 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             }
         }
 
-        protected virtual async Task UpdateUserInfoAsync(IdentityUser identityUser, UserInfoModel userInfoModel)
+        protected virtual async Task RemoveMiniProgramUserAsync(IdentityUser identityUser, MiniProgram miniProgram)
+        {
+            var mpUserMapping = await _miniProgramUserRepository.GetAsync(x =>
+                x.MiniProgramId == miniProgram.Id && x.UserId == identityUser.Id);
+
+            await _miniProgramUserRepository.DeleteAsync(mpUserMapping, true);
+        }
+
+        protected virtual async Task TryCreateUserInfoAsync(IdentityUser identityUser, UserInfoModel userInfoModel)
         {
             var userInfo = await _userInfoRepository.FindAsync(x => x.UserId == identityUser.Id);
 
@@ -298,9 +339,19 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             }
             else
             {
-                userInfo.UpdateInfo(userInfoModel);
+                // 注意：2021年4月13日后，登录时获得的UserInfo将是匿名信息，非真实用户信息，因此不再覆盖更新
+                // https://github.com/EasyAbp/WeChatManagement/issues/20
+                // https://developers.weixin.qq.com/community/develop/doc/000cacfa20ce88df04cb468bc52801
+            }
+        }
 
-                await _userInfoRepository.UpdateAsync(userInfo, true);
+        protected virtual async Task RemoveUserInfoAsync(IdentityUser identityUser)
+        {
+            var userInfo = await _userInfoRepository.FindAsync(x => x.UserId == identityUser.Id);
+
+            if (userInfo != null)
+            {
+                await _userInfoRepository.DeleteAsync(userInfo, true);
             }
         }
 
@@ -429,6 +480,10 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
 
             return new PcLoginOutput { IsSuccess = true };
         }
+
+
+
+
         public virtual async Task<PcCodeLoginOutput> PcCodeLoginAsync(PcLoginInput input)
         {
             await _identityOptions.SetAsync();
@@ -448,55 +503,7 @@ namespace Wzh.AbpVnext.WeChatManagement.MiniPrograms.Login
             var miniProgramUser = await _miniProgramUserRepository.GetAsync(x => x.UserId == user.Id);
             var miniProgram = await _miniProgramRepository.GetAsync(x => x.Id == miniProgramUser.MiniProgramId);
             var rawData = await RequestIds4LoginAsync(miniProgram.AppId, miniProgramUser.UnionId, miniProgramUser.OpenId);
-            return new PcCodeLoginOutput { IsSuccess = true,RawData= rawData?.Raw };
-        }
-
-        [Authorize]
-        public virtual async Task UnbindAsync(LoginInput input)
-        {
-            await CheckUnbindPolicyAsync();
-
-            var loginResult = await GetLoginResultAsync(input);
-
-            using var tenantChange = CurrentTenant.Change(loginResult.MiniProgram.TenantId);
-
-            await _identityOptions.SetAsync();
-
-            if (await _identityUserManager.FindByLoginAsync(loginResult.LoginProvider, loginResult.ProviderKey) == null)
-            {
-                throw new WechatAccountHasNotBeenBoundException();
-            }
-
-            var identityUser = await _identityUserManager.GetByIdAsync(CurrentUser.GetId());
-
-            (await _identityUserManager.RemoveLoginAsync(identityUser, loginResult.LoginProvider, loginResult.ProviderKey)).CheckErrors();
-
-            await RemoveMiniProgramUserAsync(identityUser, loginResult.MiniProgram);
-
-            if (!await _miniProgramUserRepository.AnyAsync(x => x.UserId == identityUser.Id))
-            {
-                await RemoveUserInfoAsync(identityUser);
-            }
-        }
-        protected virtual async Task CheckUnbindPolicyAsync()
-        {
-            await CheckPolicyAsync(UnbindPolicyName);
-        }
-        protected virtual async Task RemoveMiniProgramUserAsync(IdentityUser identityUser, MiniProgram miniProgram)
-        {
-            var mpUserMapping = await _miniProgramUserRepository.GetAsync(x =>
-                x.MiniProgramId == miniProgram.Id && x.UserId == identityUser.Id);
-
-            await _miniProgramUserRepository.DeleteAsync(mpUserMapping, true);
-        }
-        protected virtual async Task RemoveUserInfoAsync(IdentityUser identityUser)
-        {
-            var userInfo = await _userInfoRepository.FindAsync(x => x.UserId == identityUser.Id);
-
-            if (userInfo != null)
-            {
-                await _userInfoRepository.DeleteAsync(userInfo, true);
-            }
+            return new PcCodeLoginOutput { IsSuccess = true, RawData = rawData?.Raw };
         }
     }
 }
