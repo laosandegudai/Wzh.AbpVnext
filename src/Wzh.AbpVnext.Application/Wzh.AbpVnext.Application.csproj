@@ -14,17 +14,17 @@
 
   <ItemGroup>
     <PackageReference Include="EasyAbp.Abp.PhoneNumberLogin.Application" Version="0.2.1" />
-    <PackageReference Include="EasyAbp.Abp.SettingUi.Application" Version="1.3.1" />
-    <PackageReference Include="EasyAbp.FileManagement.Application" Version="1.3.1" />
-    <PackageReference Include="EasyAbp.NotificationService.Application" Version="0.2.1" />
-    <PackageReference Include="EasyAbp.WeChatManagement.MiniPrograms.Application" Version="0.11.0" />
-    <PackageReference Include="Magicodes.IE.Excel" Version="2.5.1.7" />
+    <PackageReference Include="EasyAbp.Abp.SettingUi.Application" Version="1.3.3" />
+    <PackageReference Include="EasyAbp.FileManagement.Application" Version="1.3.3" />
+    <PackageReference Include="EasyAbp.NotificationService.Application" Version="0.3.3" />
+    <PackageReference Include="EasyAbp.WeChatManagement.MiniPrograms.Application" Version="0.11.1" />
+    <PackageReference Include="Magicodes.IE.Excel" Version="2.5.3.1" />
     <PackageReference Include="Senparc.CO2NET" Version="1.3.200" />
-    <PackageReference Include="Volo.Abp.Account.Application" Version="4.2.1" />
-    <PackageReference Include="Volo.Abp.Identity.Application" Version="4.2.1" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="4.2.1" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="4.2.1" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="4.2.1" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="4.2.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="4.2.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="4.2.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="4.2.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="4.2.2" />
   </ItemGroup>
 
   <ItemGroup>

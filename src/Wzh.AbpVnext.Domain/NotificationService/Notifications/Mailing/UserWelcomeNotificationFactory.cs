@@ -25,7 +25,7 @@ namespace Wzh.AbpVnext.NotificationService.Notifications.Mailing
 
             var body = await _templateRenderer.RenderAsync("UserWelcomeEmailBody", model);
 
-            return new CreateEmailNotificationEto(userIds, subject, body);
+            return new CreateEmailNotificationEto(CurrentTenant.Id,userIds, subject, body);
         }
     }
 }

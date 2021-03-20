@@ -14,8 +14,8 @@ namespace Wzh.AbpVnext.NotificationService.Notifications.Sms
         public override async Task<CreateSmsNotificationEto> CreateAsync(UserWelcomeNotificationDataModel model, IEnumerable<Guid> userIds)
         {
             var text = $"Hello, {model.UserName}, here is a gift card code for you: {model.GiftCardCode}";
-
-            return new CreateSmsNotificationEto(userIds, text, new Dictionary<string, object>());
+            await Task.CompletedTask;
+            return new CreateSmsNotificationEto(CurrentTenant.Id, userIds, text, new Dictionary<string, object>());
         }
     }
 }
