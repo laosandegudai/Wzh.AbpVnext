@@ -13,6 +13,9 @@ using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.WeChatManagement.MiniPrograms;
 using EasyAbp.Abp.SettingUi;
+using EasyAbp.Abp.DataDictionary;
+using EasyAbp.Abp.Trees;
+using EasyAbp.Abp.DataDictionary.HttpApi;
 
 namespace Wzh.AbpVnext
 {
@@ -30,6 +33,8 @@ namespace Wzh.AbpVnext
         typeof(WeChatManagementMiniProgramsHttpApiModule),
         typeof(SettingUiHttpApiModule)
         )]
+    [DependsOn(typeof(AbpDataDictionaryHttpApiModule))]
+    [DependsOn(typeof(AbpTreesHttpApiModule))]
     public class AbpVnextHttpApiModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

@@ -17,6 +17,7 @@ using EasyAbp.Abp.Trees.EntityFrameworkCore;
 using EasyAbp.NotificationService.EntityFrameworkCore;
 using EasyAbp.Abp.PhoneNumberLogin.EntityFrameworkCore;
 using EasyAbp.WeChatManagement.MiniPrograms.EntityFrameworkCore;
+using EasyAbp.Abp.DataDictionary.EntityFrameworkCore;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
@@ -37,6 +38,7 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
         typeof(AbpPhoneNumberLoginEntityFrameworkCoreModule),
         typeof(WeChatManagementMiniProgramsEntityFrameworkCoreModule)
         )]
+    [DependsOn(typeof(AbpDataDictionaryEntityFrameworkCoreModule))]
     public class AbpVnextEntityFrameworkCoreModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)

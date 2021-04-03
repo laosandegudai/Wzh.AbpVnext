@@ -13,6 +13,7 @@ using Volo.Abp.IdentityServer.Clients;
 using Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
+using Volo.Abp.Security.Claims;
 using Volo.Abp.Uow;
 using ApiResource = Volo.Abp.IdentityServer.ApiResources.ApiResource;
 using ApiScope = Volo.Abp.IdentityServer.ApiScopes.ApiScope;
@@ -77,7 +78,9 @@ namespace Wzh.AbpVnext.IdentityServer
                 "name",
                 "phone_number",
                 "phone_number_verified",
-                "role"
+                "role",
+                AbpClaimTypes.Name,
+                AbpClaimTypes.SurName
             };
 
             await CreateApiResourceAsync("AbpVnext", commonApiUserClaims);
@@ -137,7 +140,9 @@ namespace Wzh.AbpVnext.IdentityServer
                 "role",
                 "phone",
                 "address",
-                "AbpVnext"
+                "AbpVnext",
+                AbpClaimTypes.Name,
+                AbpClaimTypes.SurName
             };
 
             var configurationSection = _configuration.GetSection("IdentityServer:Clients");

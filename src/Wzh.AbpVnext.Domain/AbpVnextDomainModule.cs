@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Wzh.AbpVnext.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -18,6 +18,8 @@ using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.WeChatManagement.MiniPrograms;
+using EasyAbp.Abp.DataDictionary;
+using EasyAbp.Abp.SettingUi;
 
 namespace Wzh.AbpVnext
 {
@@ -39,6 +41,7 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginDomainModule),
         typeof(WeChatManagementMiniProgramsDomainModule)
     )]
+    [DependsOn(typeof(AbpDataDictionaryDomainModule))]
     public class AbpVnextDomainModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

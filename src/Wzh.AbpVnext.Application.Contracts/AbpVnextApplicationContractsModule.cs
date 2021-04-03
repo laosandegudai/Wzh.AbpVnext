@@ -1,4 +1,4 @@
-﻿using EasyAbp.Abp.PhoneNumberLogin;
+using EasyAbp.Abp.PhoneNumberLogin;
 using EasyAbp.FileManagement;
 using EasyAbp.NotificationService;
 using EasyAbp.WeChatManagement.MiniPrograms;
@@ -9,6 +9,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
+using EasyAbp.Abp.DataDictionary;
+using EasyAbp.Abp.SettingUi;
+using EasyAbp.Abp.Trees;
 
 namespace Wzh.AbpVnext
 {
@@ -25,6 +28,10 @@ namespace Wzh.AbpVnext
         typeof(AbpPhoneNumberLoginApplicationContractsModule),
         typeof(WeChatManagementMiniProgramsApplicationContractsModule)
     )]
+    [DependsOn(typeof(AbpDataDictionaryApplicationContractsModule))]
+    [DependsOn(typeof(AbpDataDictionaryApplicationContractsSharedModule))]
+    [DependsOn(typeof(SettingUiApplicationContractsModule))]
+    [DependsOn(typeof(AbpTreesApplicationContractsModule))]
     public class AbpVnextApplicationContractsModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)

@@ -11,6 +11,8 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
 using EasyAbp.Abp.SettingUi;
+using EasyAbp.Abp.DataDictionary;
+using EasyAbp.Abp.Trees;
 
 namespace Wzh.AbpVnext
 {
@@ -30,6 +32,8 @@ namespace Wzh.AbpVnext
         typeof(WeChatManagementMiniProgramsApplicationModule),
         typeof(SettingUiApplicationModule)
         )]
+    [DependsOn(typeof(AbpDataDictionaryApplicationModule))]
+    [DependsOn(typeof(AbpTreesApplicationModule))]
     public class AbpVnextApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

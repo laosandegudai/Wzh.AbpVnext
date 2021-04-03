@@ -24,6 +24,8 @@ using EasyAbp.Abp.SettingUi;
 using EasyAbp.Abp.SettingUi.Localization;
 using EasyAbp.NotificationService.Localization;
 using EasyAbp.WeChatManagement.MiniPrograms.Localization;
+using EasyAbp.Abp.DataDictionary;
+using EasyAbp.WeChatManagement.Common;
 
 namespace Wzh.AbpVnext
 {
@@ -43,6 +45,8 @@ namespace Wzh.AbpVnext
         typeof(WeChatManagementMiniProgramsDomainSharedModule),
         typeof(SettingUiDomainSharedModule)
         )]
+    [DependsOn(typeof(AbpDataDictionaryDomainSharedModule))]
+    [DependsOn(typeof(WeChatManagementCommonDomainSharedModule))]
     public class AbpVnextDomainSharedModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
