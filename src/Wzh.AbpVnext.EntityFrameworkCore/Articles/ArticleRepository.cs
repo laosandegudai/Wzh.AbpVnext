@@ -5,6 +5,8 @@ using Volo.Abp.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Threading;
+using EFCore.BulkExtensions;
 
 namespace Wzh.AbpVnext.Articles
 {
@@ -17,6 +19,19 @@ namespace Wzh.AbpVnext.Articles
         {
             var query = await GetQueryableAsync();
             return query.Include(x => x.Category);
+        }
+        public async Task ExecuteStoredProcedure(CancellationToken cancellationToken = default)
+        {
+            var dbContext = await GetDbContextAsync();
+            await dbContext.Database.ExecuteSqlRawAsync(
+                "EXEC Pro_XXXX",
+                cancellationToken
+            );
+        }
+        public async Task TruncateAsync()
+        {
+            var dbContext = await GetDbContextAsync();
+            await dbContext.TruncateAsync<Article>();
         }
     }
 }

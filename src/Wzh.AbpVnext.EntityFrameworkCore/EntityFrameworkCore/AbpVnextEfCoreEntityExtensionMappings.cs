@@ -2,6 +2,7 @@
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
+using Wzh.AbpVnext.Users;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
@@ -39,6 +40,14 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
                  * See the documentation for more:
                  * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities
                  */
+                ObjectExtensionManager.Instance
+                         .MapEfCoreProperty<IdentityUser, AppUserSex?>(
+                             nameof(AppUser.Sex),
+                             (entityBuilder, propertyBuilder) =>
+                             {
+                                 
+                             }
+                         );
             });
         }
     }

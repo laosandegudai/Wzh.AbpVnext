@@ -1,4 +1,5 @@
-﻿using EasyAbp.FileManagement.Files;
+﻿using EasyAbp.FileManagement;
+using EasyAbp.FileManagement.Files;
 using EasyAbp.FileManagement.Files.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Wzh.AbpVnext.FileManagement;
 using Wzh.AbpVnext.Models.FileManagement;
 
 namespace Wzh.AbpVnext.Controllers.FileManagement
@@ -59,7 +61,7 @@ namespace Wzh.AbpVnext.Controllers.FileManagement
             await file.CopyToAsync(memoryStream);
             return await _service.CreateAsync(new CreateFileInput
             {
-                FileContainerName = "default",
+                FileContainerName = FileConsts.Default,
                 FileName = fileName,
                 MimeType = file.ContentType,
                 FileType = FileType.RegularFile,

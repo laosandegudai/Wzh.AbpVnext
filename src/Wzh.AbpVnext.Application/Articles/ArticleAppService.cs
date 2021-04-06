@@ -17,6 +17,7 @@ using Wzh.AbpVnext.Dtos;
 using Volo.Abp.Validation;
 using EasyAbp.FileManagement.Files;
 using EasyAbp.FileManagement.Files.Dtos;
+using Wzh.AbpVnext.FileManagement;
 
 namespace Wzh.AbpVnext.Articles
 {
@@ -85,7 +86,7 @@ namespace Wzh.AbpVnext.Articles
                 Importer.OutputBussinessErrorData<ArticleImportDto>(newStream, import.RowErrors.ToList(), out byte[] fileByte);
                 var createFileOutput = await _fileService.CreateAsync(new CreateFileInput
                 {
-                    FileContainerName = "temp",
+                    FileContainerName = FileConsts.Temp,
                     FileName = input.FileName,
                     MimeType = input.MimeType,
                     FileType = FileType.RegularFile,
@@ -100,5 +101,7 @@ namespace Wzh.AbpVnext.Articles
             await _repository.InsertManyAsync(entitys);
             return result;
         }
+
+        
     }
 }

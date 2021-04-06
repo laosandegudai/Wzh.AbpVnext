@@ -38,6 +38,8 @@ using Volo.Abp.Timing;
 using System.Globalization;
 using System.Reflection;
 using Wzh.AbpVnext.Blob;
+using Volo.Abp.BackgroundWorkers;
+using Wzh.AbpVnext.FileManagement;
 
 namespace Wzh.AbpVnext
 {
@@ -293,6 +295,7 @@ namespace Wzh.AbpVnext
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+            
         }
     }
 }

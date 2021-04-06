@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FileManagement\" />
     <Folder Include="IdentityServer\ApiResources\" />
     <Folder Include="IdentityServer\Clients\" />
     <Folder Include="IdentityServer\IdentityResources\" />

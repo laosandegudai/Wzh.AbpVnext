@@ -10,6 +10,10 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {
+
+    /// <summary>
+    /// 批量数据操作使用第三方库实现
+    /// </summary>
     public class EfCoreBulkOperationProvider : IEfCoreBulkOperationProvider, ITransientDependency
     {
         async Task IEfCoreBulkOperationProvider.DeleteManyAsync<TDbContext, TEntity>(IEfCoreRepository<TEntity> repository, IEnumerable<TEntity> entities, bool autoSave, CancellationToken cancellationToken)

@@ -54,7 +54,7 @@ namespace Wzh.AbpVnext.Users
          * 4. Run the .DbMigrator project (or use the Update-Database command) to apply
          * schema change to the database.
          */
-
+        public AppUserSex? Sex { get; set; }
         private AppUser()
         {
             
