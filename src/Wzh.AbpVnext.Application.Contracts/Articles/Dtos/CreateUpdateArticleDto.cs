@@ -1,10 +1,14 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace Wzh.AbpVnext.Articles.Dtos
 {
     [Serializable]
     public class CreateUpdateArticleDto
     {
+        [Required]
+        [Display(Name = "БъЬт")]
         public string Title { get; set; }
 
         public string LinkUrl { get; set; }

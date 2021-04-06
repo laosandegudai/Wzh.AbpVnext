@@ -8,6 +8,8 @@ namespace Wzh.AbpVnext.Articles.Dtos
     [Serializable]
     public class CreateUpdateArticleCategoryDto
     {
+        [Required]
+        [Display(Name = "Ãû³Æ")]
         public string DisplayName { get; set; }
 
         public string Code { get; set; }
