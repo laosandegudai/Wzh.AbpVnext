@@ -1270,6 +1270,9 @@ namespace Wzh.AbpVnext.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("SecurityStamp");
 
+                    b.Property<int?>("Sex")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
