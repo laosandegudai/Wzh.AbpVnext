@@ -26,7 +26,7 @@ namespace Wzh.AbpVnext.FileManagement
         public override void Execute(FileCheckArgs args)
         {
             var compareTime = DateTime.Now.AddDays(-7);
-            var query = _repository.Where(x => x.FileContainerName== FileConsts.Temp && x.CreationTime< compareTime);
+            var query = _repository.Where(x => x.FileContainerName== FileContainerNameConsts.Temp && x.CreationTime< compareTime);
             foreach (var item in query)
             {
                 AsyncHelper.RunSync(() => _fileManager.DeleteAsync(item));

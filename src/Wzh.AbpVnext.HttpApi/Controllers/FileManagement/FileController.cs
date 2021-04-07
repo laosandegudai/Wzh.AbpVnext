@@ -61,7 +61,7 @@ namespace Wzh.AbpVnext.Controllers.FileManagement
             await file.CopyToAsync(memoryStream);
             return await _service.CreateAsync(new CreateFileInput
             {
-                FileContainerName = FileConsts.Default,
+                FileContainerName = FileContainerNameConsts.Default,
                 FileName = fileName,
                 MimeType = file.ContentType,
                 FileType = FileType.RegularFile,
