@@ -45,10 +45,10 @@ namespace Wzh.AbpVnext.Articles
                 .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter))
                 .WhereIf(input.CategoryId != null, x => x.CategoryId == input.CategoryId);
         }
-        [Authorize(AbpVnextPermissions.Article.Delete)]
+        [Authorize(AbpVnextPermissions.Article .Delete)]
         public async Task DeleteAsync(List<Guid> ids)
         {
-            await _repository.DeleteAsync(x => ids.Contains(x.Id));
+            await _repository.DeleteManyAsync(ids);
         }
         [RemoteService(false)]
         public async Task<byte[]> ExportExcel(GetArticleListInput input)

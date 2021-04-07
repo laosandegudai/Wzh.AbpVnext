@@ -30,7 +30,10 @@ namespace Wzh.AbpVnext.Articles
         [Authorize(AbpVnextPermissions.ArticleCategory.Delete)]
         public async Task DeleteAsync(List<Guid> ids)
         {
-            await _repository.DeleteAsync(x => ids.Contains(x.Id));
+            foreach (var item in ids)
+            {
+                await _repository.DeleteAsync(item);
+            }
         }
         [Authorize(AbpVnextPermissions.ArticleCategory.Default)]
         public async Task<List<ArticleCategoryDto>> GetTreesAsync()
