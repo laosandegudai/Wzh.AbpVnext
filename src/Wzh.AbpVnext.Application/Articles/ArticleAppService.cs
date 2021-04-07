@@ -40,7 +40,7 @@ namespace Wzh.AbpVnext.Articles
         }
         protected override async Task<IQueryable<Article>> CreateFilteredQueryAsync(GetArticleListInput input)
         {
-            var query = await ReadOnlyRepository.WithDetailsAsync();
+            var query = await _repository.WithDetailsAsync();
             return query
                 .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter))
                 .WhereIf(input.CategoryId != null, x => x.CategoryId == input.CategoryId);
