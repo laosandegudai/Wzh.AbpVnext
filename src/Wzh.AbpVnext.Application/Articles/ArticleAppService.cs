@@ -86,7 +86,7 @@ namespace Wzh.AbpVnext.Articles
                 Importer.OutputBussinessErrorData<ArticleImportDto>(newStream, import.RowErrors.ToList(), out byte[] fileByte);
                 var createFileOutput = await _fileService.CreateAsync(new CreateFileInput
                 {
-                    FileContainerName = FileConsts.Temp,
+                    FileContainerName = FileContainerNameConsts.Temp,
                     FileName = input.FileName,
                     MimeType = input.MimeType,
                     FileType = FileType.RegularFile,
