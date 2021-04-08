@@ -33,19 +33,25 @@ namespace Wzh.AbpVnext.Articles
 
         private readonly IArticleRepository _repository;
         private readonly IFileAppService _fileService;
-        public ArticleAppService(IArticleRepository repository,IFileAppService fileService) : base(repository)
+        private readonly IArticleCategoryRepository _articleCategoryrepository;
+        public ArticleAppService(IArticleRepository repository,IFileAppService fileService, IArticleCategoryRepository articleCategoryrepository) : base(repository)
         {
             _repository = repository;
             _fileService = fileService;
+            _articleCategoryrepository = articleCategoryrepository;
         }
         protected override async Task<IQueryable<Article>> CreateFilteredQueryAsync(GetArticleListInput input)
         {
             var query = await _repository.WithDetailsAsync();
+            if (input.CategoryId != null)
+            {
+                var code = (await _articleCategoryrepository.GetAsync(x => x.Id == input.CategoryId))?.Code;
+                query=query.Where(x => x.Category.Code.StartsWith(code));
+            }
             return query
-                .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter))
-                .WhereIf(input.CategoryId != null, x => x.CategoryId == input.CategoryId);
+                .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter));
         }
-        [Authorize(AbpVnextPermissions.Article .Delete)]
+        [Authorize(AbpVnextPermissions.Article.Delete)]
         public async Task DeleteAsync(List<Guid> ids)
         {
             await _repository.DeleteManyAsync(ids);
