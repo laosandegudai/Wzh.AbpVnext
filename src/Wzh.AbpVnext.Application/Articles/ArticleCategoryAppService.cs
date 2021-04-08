@@ -55,13 +55,13 @@ namespace Wzh.AbpVnext.Articles
             if (dto.Children.Count == 0)
             {
                 var childrenList = await _repository.GetChildrenAsync(dto.Id, false);
-                children = ObjectMapper.Map<List<ArticleCategory>, List<ArticleCategoryDto>>(childrenList.OrderBy(x => x.DisplayOrder).ToList());
+                children = ObjectMapper.Map<List<ArticleCategory>, List<ArticleCategoryDto>>(childrenList);
                 if (children == null || !children.Any())
                 {
                     await Task.CompletedTask;
                     return;
                 }
-                dto.Children.AddRange(children);
+                dto.Children?.AddRange(children.OrderBy(x => x.DisplayOrder));
             }
             if (children == null || !children.Any())
             {
@@ -76,8 +76,8 @@ namespace Wzh.AbpVnext.Articles
                     await Task.CompletedTask;
                     return;
                 }
-                child.Children.AddRange(next);
-                await TraverseTreeAsync(dto, child.Children);
+                child.Children?.AddRange(next.OrderBy(x => x.DisplayOrder));
+                await TraverseTreeAsync(child, child.Children);
             }
         }
         
