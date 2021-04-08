@@ -18,7 +18,7 @@ namespace Wzh.AbpVnext.Articles
         public override async Task<IQueryable<Article>> WithDetailsAsync()
         {
             var query = await GetQueryableAsync();
-            return query.Include(x => x.Category);
+            return query.IncludeDetails();
         }
         public async Task ExecuteStoredProcedure(CancellationToken cancellationToken = default)
         {
