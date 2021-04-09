@@ -95,9 +95,10 @@ namespace Wzh.AbpVnext.Identity
         public virtual async Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input)
         {
             var query= await CreateFilteredQueryAsync(input);
+            var count = await AsyncExecuter.CountAsync(query);
             query = query.PageBy(input.SkipCount, input.MaxResultCount);
             var list = await AsyncExecuter.ToListAsync(query);
-            var count = await AsyncExecuter.CountAsync(query);
+           
 
             return new PagedResultDto<IdentityUserDetailsDto>(
                 count,
