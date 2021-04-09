@@ -28,5 +28,6 @@ namespace Wzh.AbpVnext.Articles.Dtos
         public Guid CategoryId { get; set; }
 
         public ArticleCategoryDto Category { get; set; }
+        public string Type { get; set; }
     }
 }

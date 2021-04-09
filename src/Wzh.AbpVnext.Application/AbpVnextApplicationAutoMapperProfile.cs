@@ -8,6 +8,7 @@ using EasyAbp.FileManagement.Files.Dtos;
 using EasyAbp.FileManagement.Files;
 using Wzh.AbpVnext.Identity;
 using Wzh.AbpVnext.AuditLogging;
+using System.Linq;
 
 namespace Wzh.AbpVnext
 {
@@ -31,8 +32,11 @@ namespace Wzh.AbpVnext
 
             CreateMap<IdentityUserOrgCreateDto, IdentityUserCreateDto>();
             CreateMap<IdentityUserOrgUpdateDto, IdentityUserUpdateDto>();
+            CreateMap<IdentityUser, IdentityUserDetailsDto>();
 
             CreateMap<IdentityRoleOrgCreateDto, IdentityRoleCreateDto>();
+
+
 
             //AuditLog
             CreateMap<AuditLog, AuditLogDto>()

@@ -12,6 +12,9 @@ using Volo.Abp.TenantManagement;
 using EasyAbp.Abp.DataDictionary;
 using EasyAbp.Abp.SettingUi;
 using EasyAbp.Abp.Trees;
+using Volo.Abp;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Wzh.AbpVnext
 {
@@ -38,5 +41,6 @@ namespace Wzh.AbpVnext
         {
             AbpVnextDtoExtensions.Configure();
         }
+        
     }
 }

@@ -70,6 +70,12 @@ namespace Wzh.AbpVnext.Articles
         /// </summary>
         [Display(Name = "分类")]
         public ArticleCategory Category { get; set; }
+        /// <summary>
+        /// 类型
+        /// </summary>
+        [Display(Name = "类型")]
+        [MaxLength(100)]
+        public string Type { get; set; }
 
         public Guid? TenantId { get; set; }
 

@@ -55,5 +55,13 @@ namespace Wzh.AbpVnext.Controllers.Identity
         {
             return UserAppService.UpdateAsync(id, input);
         }
+        [HttpGet]
+        [Route("details")]
+        public Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input)
+        {
+            return UserAppService.GetListDetailsAsync(input);
+        }
+
+
     }
 }

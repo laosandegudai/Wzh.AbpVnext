@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -26,5 +27,6 @@ namespace Wzh.AbpVnext.Identity
         Task<IdentityUserDto> CreateAsync(IdentityUserOrgCreateDto input);
 
         Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input);
+        Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input);
     }
 }

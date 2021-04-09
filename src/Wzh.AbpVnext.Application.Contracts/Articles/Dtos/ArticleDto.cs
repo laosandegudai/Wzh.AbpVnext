@@ -1,3 +1,4 @@
+using EasyAbp.Abp.DataDictionary;
 using System;
 using Volo.Abp.Application.Dtos;
 
@@ -25,5 +26,8 @@ namespace Wzh.AbpVnext.Articles.Dtos
         public Guid CategoryId { get; set; }
 
         public ArticleCategoryDto Category { get; set; }
+        [DictionaryCodeField("ArticleType")]
+        [DictionaryRenderField("ArticleType")]
+        public string Type { get; set; }
     }
 }

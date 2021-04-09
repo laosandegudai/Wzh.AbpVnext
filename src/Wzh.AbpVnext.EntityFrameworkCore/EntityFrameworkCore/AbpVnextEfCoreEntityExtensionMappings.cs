@@ -41,7 +41,7 @@ namespace Wzh.AbpVnext.EntityFrameworkCore
                  * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities
                  */
                 ObjectExtensionManager.Instance
-                         .MapEfCoreProperty<IdentityUser, AppUserSex?>(
+                         .MapEfCoreProperty<IdentityUser, int?>(
                              nameof(AppUser.Sex),
                              (entityBuilder, propertyBuilder) =>
                              {

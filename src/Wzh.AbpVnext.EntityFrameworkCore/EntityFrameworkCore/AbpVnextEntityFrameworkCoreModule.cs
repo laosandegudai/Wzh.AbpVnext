@@ -18,6 +18,8 @@ using EasyAbp.NotificationService.EntityFrameworkCore;
 using EasyAbp.Abp.PhoneNumberLogin.EntityFrameworkCore;
 using EasyAbp.WeChatManagement.MiniPrograms.EntityFrameworkCore;
 using EasyAbp.Abp.DataDictionary.EntityFrameworkCore;
+using Wzh.AbpVnext.Identity;
+using Volo.Abp.Identity;
 
 namespace Wzh.AbpVnext.EntityFrameworkCore
 {

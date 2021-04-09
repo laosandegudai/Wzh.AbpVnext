@@ -11,6 +11,8 @@ using System.Linq;
 using Microsoft.Extensions.Options;
 using Volo.Abp;
 using Volo.Abp.Identity;
+using Volo.Abp.Domain.Repositories;
+
 
 namespace Wzh.AbpVnext.Identity
 {
@@ -23,13 +25,19 @@ namespace Wzh.AbpVnext.Identity
     public class WzhIdentityUserAppService : IdentityUserAppService, IWzhIdentityUserAppService
     {
         private readonly IStringLocalizer<AbpVnextResource> _localizer;
-
+        private readonly IRepository<IdentityUser, Guid> _repository;
+        private readonly OrganizationUnitManager UnitManager;
         public WzhIdentityUserAppService(IdentityUserManager userManager,
             IIdentityUserRepository userRepository,
             IIdentityRoleRepository roleRepository,
-            IStringLocalizer<AbpVnextResource> localizer,IOptions<Microsoft.AspNetCore.Identity.IdentityOptions> identityOptions) : base(userManager, userRepository, roleRepository, identityOptions)
+            IStringLocalizer<AbpVnextResource> localizer,
+            IOptions<Microsoft.AspNetCore.Identity.IdentityOptions> identityOptions,
+            OrganizationUnitManager unitManager,
+            IRepository<IdentityUser, Guid> repository) : base(userManager, userRepository, roleRepository, identityOptions)
         {
             _localizer = localizer;
+            _repository = repository;
+            UnitManager = unitManager;
         }
 
         public override async Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)
@@ -84,15 +92,40 @@ namespace Wzh.AbpVnext.Identity
 
 
         [Authorize(IdentityPermissions.Users.Default)]
-        public override async Task<PagedResultDto<IdentityUserDto>> GetListAsync(GetIdentityUsersInput input)
+        public virtual async Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input)
         {
-            var count = await UserRepository.GetCountAsync(input.Filter);
-            var list = await UserRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
+            var query= await CreateFilteredQueryAsync(input);
+            query = query.PageBy(input.SkipCount, input.MaxResultCount);
+            var list = await AsyncExecuter.ToListAsync(query);
+            var count = await AsyncExecuter.CountAsync(query);
 
-            return new PagedResultDto<IdentityUserDto>(
+            return new PagedResultDto<IdentityUserDetailsDto>(
                 count,
-                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list)
+                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDetailsDto>>(list)
             );
+        }
+        public virtual async Task<IQueryable<IdentityUser>> CreateFilteredQueryAsync(GetIdentityUsersDetailsInput input)
+        {
+            var query = await _repository.WithDetailsAsync();
+            //if (input.OrganizationUnitId != null)
+            //{
+            //    var code = await UnitManager.GetCodeOrDefaultAsync(input.OrganizationUnitId.Value);
+            //    var organizationUnitIds = (await UnitManager.FindChildrenAsync(input.OrganizationUnitId.Value, true)).Select(x => x.Id);
+            //    query = query.Where(x => x.OrganizationUnits.Any(o => organizationUnitIds.Contains(o.OrganizationUnitId)));
+            //}
+            return query
+                .WhereIf(
+                    !input.Filter.IsNullOrWhiteSpace(),
+                    u =>
+                        u.UserName.Contains(input.Filter) ||
+                        u.Email.Contains(input.Filter) ||
+                        (u.Name != null && u.Name.Contains(input.Filter)) ||
+                        (u.Surname != null && u.Surname.Contains(input.Filter)) ||
+                        (u.PhoneNumber != null && u.PhoneNumber.Contains(input.Filter))
+                )
+                .WhereIf(input.RoleId != null, u => u.Roles.Any(x => x.RoleId == input.RoleId))
+                .WhereIf(input.OrganizationUnitId != null, u => u.OrganizationUnits.Any(x => x.OrganizationUnitId == input.OrganizationUnitId))
+                ;
         }
     }
 }
