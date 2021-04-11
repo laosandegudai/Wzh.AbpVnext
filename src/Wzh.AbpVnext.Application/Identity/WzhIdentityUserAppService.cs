@@ -94,15 +94,16 @@ namespace Wzh.AbpVnext.Identity
         [Authorize(IdentityPermissions.Users.Default)]
         public virtual async Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input)
         {
-            var query= await CreateFilteredQueryAsync(input);
+            var query = await CreateFilteredQueryAsync(input);
             var count = await AsyncExecuter.CountAsync(query);
             query = query.PageBy(input.SkipCount, input.MaxResultCount);
             var list = await AsyncExecuter.ToListAsync(query);
-           
-
+            var userListDtos = ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDetailsDto>>(list);
+            await FillRoleNames(userListDtos);
+            await FillOrganizationUnitNames(userListDtos);
             return new PagedResultDto<IdentityUserDetailsDto>(
                 count,
-                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDetailsDto>>(list)
+                userListDtos
             );
         }
         public virtual async Task<IQueryable<IdentityUser>> CreateFilteredQueryAsync(GetIdentityUsersDetailsInput input)
@@ -127,6 +128,15 @@ namespace Wzh.AbpVnext.Identity
                 .WhereIf(input.RoleId != null, u => u.Roles.Any(x => x.RoleId == input.RoleId))
                 .WhereIf(input.OrganizationUnitId != null, u => u.OrganizationUnits.Any(x => x.OrganizationUnitId == input.OrganizationUnitId))
                 ;
+        }
+        private async Task FillRoleNames(IReadOnlyCollection<IdentityUserDetailsDto> userListDtos)
+        {
+            var userIds = userListDtos.Select(x=>x.Id);
+            //下周再写
+        }
+        private async Task FillOrganizationUnitNames(IReadOnlyCollection<IdentityUserDetailsDto> userListDtos)
+        {
+            //下周再写
         }
     }
 }
