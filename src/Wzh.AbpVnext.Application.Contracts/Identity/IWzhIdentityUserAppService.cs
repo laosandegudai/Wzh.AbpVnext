@@ -27,6 +27,7 @@ namespace Wzh.AbpVnext.Identity
         Task<IdentityUserDto> CreateAsync(IdentityUserOrgCreateDto input);
 
         Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input);
+
         Task<PagedResultDto<IdentityUserDetailsDto>> GetListDetailsAsync(GetIdentityUsersDetailsInput input);
     }
 }
