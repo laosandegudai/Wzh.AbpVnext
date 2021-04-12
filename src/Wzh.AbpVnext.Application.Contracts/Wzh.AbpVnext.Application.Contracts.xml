@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wzh.AbpVnext.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleCategoryDto.DisplayOrder">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.LinkUrl">
+            <summary>
+            外链
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.ImgId">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.ZhaiYao">
+            <summary>
+            摘要
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.ViewCount">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.DisplayOrder">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.CategoryId">
+            <summary>
+            分类ID
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.ArticleDto.Type">
+            <summary>
+            文章类型
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleCategoryDto.DisplayOrder">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="M:Wzh.AbpVnext.Identity.IWzhIdentityUserAppService.GetListOrganizationUnitsAsync(System.Guid,System.Boolean)">
+            <summary>
+            get list OrganizationUnits
+            </summary>
+            <param name="id">user id</param>
+            <param name="includeDetails"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

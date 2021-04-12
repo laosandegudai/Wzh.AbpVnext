@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wzh.AbpVnext.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Wzh.AbpVnext.Articles.ArticleAppService">
+            <summary>
+            文章
+            </summary>
+        </member>
+        <member name="M:Wzh.AbpVnext.Articles.ArticleAppService.DeleteAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="ids">文章id数组</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wzh.AbpVnext.FileManagement.FileCheckJob">
+            <summary>
+            后台清理临时文件(比如导入校验失败提供下载的错误数据xlsx)
+            </summary>
+        </member>
+        <member name="M:Wzh.AbpVnext.Identity.OrganizationUnitAppService.SetLeaf(System.Collections.Generic.List{Wzh.AbpVnext.Identity.OrganizationUnitDto})">
+            <summary>
+            后面考虑处理存储leaf到数据库,避免这么进行处理
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

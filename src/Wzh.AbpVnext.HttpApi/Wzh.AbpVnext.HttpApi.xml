@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wzh.AbpVnext.HttpApi</name>
+    </assembly>
+    <members>
+        <member name="M:Wzh.AbpVnext.Controllers.Identity.WzhIdentityUserController.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
+            <summary>
+            Add members to the organizational unit
+            </summary>
+            <param name="userId">userId</param>
+            <param name="ouIds">ouId</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

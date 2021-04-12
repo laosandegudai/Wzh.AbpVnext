@@ -73,7 +73,7 @@ namespace Wzh.AbpVnext
             ConfigureFileManagement(hostingEnvironment);
             ConfigureVirtualFileSystem(context);
             ConfigureCors(context, configuration);
-            ConfigureSwaggerServices(context);
+            ConfigureSwaggerServices(context, configuration);
             if (DateTimeFormatInfo.CurrentInfo != null)
             {
                 var type = DateTimeFormatInfo.CurrentInfo.GetType();
@@ -99,6 +99,7 @@ namespace Wzh.AbpVnext
             Configure<AppUrlOptions>(options =>
             {
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+                options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"].Split(','));
             });
         }
 
@@ -150,13 +151,22 @@ namespace Wzh.AbpVnext
                 });
         }
 
-        private static void ConfigureSwaggerServices(ServiceConfigurationContext context)
+        private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
         {
-            context.Services.AddSwaggerGen(
+            context.Services.AddAbpSwaggerGenWithOAuth(
+                configuration["AuthServer:Authority"],
+                new Dictionary<string, string>
+                {
+                    {"AbpVnext", "AbpVnext API"}
+                },
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "AbpVnext API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "AbpVnext API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
+                    var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                    options.IncludeXmlComments(Path.Combine(basePath, "Wzh.AbpVnext.Application.xml"), true);
+                    options.IncludeXmlComments(Path.Combine(basePath, "Wzh.AbpVnext.Application.Contracts.xml"), true);
+                    options.IncludeXmlComments(Path.Combine(basePath, "Wzh.AbpVnext.HttpApi.xml"), true);
                 });
         }
 
@@ -283,6 +293,7 @@ namespace Wzh.AbpVnext
                 app.UseMultiTenancy();
             }
 
+            app.UseUnitOfWork();
             app.UseIdentityServer();
             app.UseAuthorization();
 
@@ -290,6 +301,11 @@ namespace Wzh.AbpVnext
             app.UseAbpSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "AbpVnext API");
+                var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
+                c.OAuthClientId(configuration["IdentityServer:Clients:AbpVnext_Swagger:ClientId"]);
+                c.OAuthClientSecret(configuration["IdentityServer:Clients:AbpVnext_Swagger:ClientSecret"]);
+                c.OAuth2RedirectUrl($"{configuration["IdentityServer:Clients:AbpVnext_Swagger:RootUrl"]}/swagger/oauth2-redirect.html");
+                c.OAuthScopes(new string[] { "AbpVnext" });
             });
 
             app.UseAuditing();

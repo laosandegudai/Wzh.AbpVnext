@@ -21,6 +21,9 @@ using Wzh.AbpVnext.FileManagement;
 
 namespace Wzh.AbpVnext.Articles
 {
+    /// <summary>
+    /// 文章
+    /// </summary>
     [Authorize(AbpVnextPermissions.Article.Default)]
     public class ArticleAppService : CrudAppService<Article, ArticleDto, Guid, GetArticleListInput, CreateUpdateArticleDto, CreateUpdateArticleDto>,
         IArticleAppService
@@ -51,6 +54,11 @@ namespace Wzh.AbpVnext.Articles
             return query
                 .WhereIf(!string.IsNullOrEmpty(input.Filter), x => x.Title.Contains(input.Filter));
         }
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids">文章id数组</param>
+        /// <returns></returns>
         [Authorize(AbpVnextPermissions.Article.Delete)]
         public async Task DeleteAsync(List<Guid> ids)
         {

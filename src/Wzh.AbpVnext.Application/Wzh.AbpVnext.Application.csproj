@@ -7,6 +7,10 @@
     <RootNamespace>Wzh.AbpVnext</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\捷配\模板\AbpVNext\src\Wzh.AbpVnext.Application\Wzh.AbpVnext.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Wzh.AbpVnext.Domain\Wzh.AbpVnext.Domain.csproj" />
     <ProjectReference Include="..\Wzh.AbpVnext.Application.Contracts\Wzh.AbpVnext.Application.Contracts.csproj" />
