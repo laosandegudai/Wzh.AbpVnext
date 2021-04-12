@@ -16,6 +16,7 @@ namespace Wzh.AbpVnext
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseMiddleware<CorsMiddleware>();
             app.InitializeApplication();
         }
     }
