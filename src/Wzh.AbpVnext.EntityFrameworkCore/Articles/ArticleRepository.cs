@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
 using EFCore.BulkExtensions;
+using Wzh.AbpVnext.Users;
 
 namespace Wzh.AbpVnext.Articles
 {
@@ -32,6 +33,20 @@ namespace Wzh.AbpVnext.Articles
         {
             var dbContext = await GetDbContextAsync();
             await dbContext.TruncateAsync<Article>();
+        }
+        public async Task<IQueryable<ArticleWithDetail>> GetListQueryAsync()
+        {
+            var dbSet = await GetDbSetAsync();
+            var userDbSet = (await GetDbContextAsync()).Set<AppUser>();
+            var query = from article in dbSet
+                        join user in (await GetDbContextAsync()).Set<AppUser>() on article.CreatorId equals user.Id into userJoined
+                        from user in userJoined.DefaultIfEmpty()
+                        select new ArticleWithDetail
+                        {
+                            Article = article,
+                            Creator = user
+                        };
+            return query;
         }
     }
 }
