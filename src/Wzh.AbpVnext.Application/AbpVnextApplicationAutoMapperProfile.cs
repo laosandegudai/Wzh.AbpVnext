@@ -60,6 +60,8 @@ namespace Wzh.AbpVnext
             CreateMap<UpdateClaimTypeDto, IdentityClaimType>().Ignore(x => x.IsStatic).Ignore(x => x.Id);
 
             CreateMap<FileInfoDto, File>();
+
+
         }
 
 

@@ -13,6 +13,9 @@ using Volo.Abp.TenantManagement;
 using EasyAbp.Abp.SettingUi;
 using EasyAbp.Abp.DataDictionary;
 using EasyAbp.Abp.Trees;
+using Microsoft.Extensions.DependencyInjection;
+using Magicodes.ExporterAndImporter.Excel;
+using Magicodes.ExporterAndImporter.Core;
 
 namespace Wzh.AbpVnext
 {
@@ -41,6 +44,8 @@ namespace Wzh.AbpVnext
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddMaps<AbpVnextApplicationModule>();
+                context.Services.AddSingleton<IExcelImporter, ExcelImporter>();
+                context.Services.AddSingleton<IExporter, ExcelExporter>();
             });
         }
     }

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\捷配\模板\AbpVNext\src\Wzh.AbpVnext.HttpApi\Wzh.AbpVnext.HttpApi.xml</DocumentationFile>
+    <DocumentationFile>E:\智安云联\模板\AbpVnext\src\Wzh.AbpVnext.HttpApi\Wzh.AbpVnext.HttpApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
