@@ -109,12 +109,13 @@ namespace Wzh.AbpVnext.Identity
         public virtual async Task<IQueryable<IdentityUser>> CreateFilteredQueryAsync(GetIdentityUsersDetailsInput input)
         {
             var query = await _repository.WithDetailsAsync();
-            //if (input.OrganizationUnitId != null)
-            //{
-            //    var code = await UnitManager.GetCodeOrDefaultAsync(input.OrganizationUnitId.Value);
-            //    var organizationUnitIds = (await UnitManager.FindChildrenAsync(input.OrganizationUnitId.Value, true)).Select(x => x.Id);
-            //    query = query.Where(x => x.OrganizationUnits.Any(o => organizationUnitIds.Contains(o.OrganizationUnitId)));
-            //}
+            if (input.OrganizationUnitId != null)
+            {
+                var code = await UnitManager.GetCodeOrDefaultAsync(input.OrganizationUnitId.Value);
+                var organizationUnitIds = (await UnitManager.FindChildrenAsync(input.OrganizationUnitId.Value, true)).Select(x => x.Id).ToList();
+                organizationUnitIds.Add(input.OrganizationUnitId.Value);
+                query = query.Where(x => x.OrganizationUnits.Any(o => organizationUnitIds.Contains(o.OrganizationUnitId)));
+            }
             return query
                 .WhereIf(
                     !input.Filter.IsNullOrWhiteSpace(),
@@ -126,7 +127,7 @@ namespace Wzh.AbpVnext.Identity
                         (u.PhoneNumber != null && u.PhoneNumber.Contains(input.Filter))
                 )
                 .WhereIf(input.RoleId != null, u => u.Roles.Any(x => x.RoleId == input.RoleId))
-                .WhereIf(input.OrganizationUnitId != null, u => u.OrganizationUnits.Any(x => x.OrganizationUnitId == input.OrganizationUnitId))
+                //.WhereIf(input.OrganizationUnitId != null, u => u.OrganizationUnits.Any(x => x.OrganizationUnitId == input.OrganizationUnitId))
                 ;
         }
         private async Task FillRoleNames(IReadOnlyCollection<IdentityUserDetailsDto> userListDtos)

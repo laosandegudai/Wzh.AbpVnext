@@ -64,6 +64,61 @@
             排序
             </summary>
         </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.LinkUrl">
+            <summary>
+            外链
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.ImgId">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.ZhaiYao">
+            <summary>
+            摘要
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.ViewCount">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.DisplayOrder">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.CreateUpdateArticleDto.CategoryId">
+            <summary>
+            分类ID
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.GetArticleListInput.Filter">
+            <summary>
+            搜索关键词
+            </summary>
+        </member>
+        <member name="P:Wzh.AbpVnext.Articles.Dtos.GetArticleListInput.CategoryId">
+            <summary>
+            分类ID
+            </summary>
+        </member>
         <member name="M:Wzh.AbpVnext.Identity.IWzhIdentityUserAppService.GetListOrganizationUnitsAsync(System.Guid,System.Boolean)">
             <summary>
             get list OrganizationUnits

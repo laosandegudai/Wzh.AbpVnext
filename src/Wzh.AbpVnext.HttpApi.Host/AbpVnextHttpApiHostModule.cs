@@ -40,6 +40,8 @@ using System.Reflection;
 using Wzh.AbpVnext.Blob;
 using Volo.Abp.BackgroundWorkers;
 using Wzh.AbpVnext.FileManagement;
+using Volo.Abp.BackgroundJobs.Hangfire;
+using Hangfire;
 
 namespace Wzh.AbpVnext
 {
@@ -56,6 +58,7 @@ namespace Wzh.AbpVnext
         typeof(AbpSwashbuckleModule),
         typeof(AbpBlobStoringFileSystemModule)
     )]
+    [DependsOn(typeof(AbpBackgroundJobsHangfireModule))]
     public class AbpVnextHttpApiHostModule : AbpModule
     {
         private const string DefaultCorsPolicyName = "Default";
@@ -74,6 +77,7 @@ namespace Wzh.AbpVnext
             ConfigureVirtualFileSystem(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context, configuration);
+            ConfigureHangfire(context, configuration);
             if (DateTimeFormatInfo.CurrentInfo != null)
             {
                 var type = DateTimeFormatInfo.CurrentInfo.GetType();
@@ -261,6 +265,13 @@ namespace Wzh.AbpVnext
             });
 
         }
+        private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            context.Services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(configuration.GetConnectionString("Default"));
+            });
+        }
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
@@ -311,7 +322,9 @@ namespace Wzh.AbpVnext
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
-            
+            app.UseHangfireDashboard();
+            context.AddBackgroundWorker<FileCheckerWorker>();
+            RecurringJob.AddOrUpdate<FileCheckJob>(r => r.ExecuteAsync(new FileCheckArgs()), Cron.Hourly);
         }
     }
 }
