@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Threading;
+using Volo.Abp.Uow;
 
 namespace Wzh.AbpVnext.FileManagement
 {
@@ -22,7 +23,7 @@ namespace Wzh.AbpVnext.FileManagement
         {
             Timer.Period = 600000; //10 minutes
         }
-
+        [UnitOfWork]
         protected async override Task DoWorkAsync(
             PeriodicBackgroundWorkerContext workerContext)
         {

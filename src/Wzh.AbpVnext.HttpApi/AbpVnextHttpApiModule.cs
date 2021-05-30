@@ -31,7 +31,7 @@ namespace Wzh.AbpVnext
         typeof(NotificationServiceHttpApiModule),
         typeof(AbpPhoneNumberLoginHttpApiModule),
         typeof(WeChatManagementMiniProgramsHttpApiModule),
-        typeof(SettingUiHttpApiModule)
+        typeof(AbpSettingUiHttpApiModule)
         )]
     [DependsOn(typeof(AbpDataDictionaryHttpApiModule))]
     [DependsOn(typeof(AbpTreesHttpApiModule))]

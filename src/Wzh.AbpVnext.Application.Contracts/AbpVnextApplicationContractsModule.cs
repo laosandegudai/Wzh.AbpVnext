@@ -33,7 +33,7 @@ namespace Wzh.AbpVnext
     )]
     [DependsOn(typeof(AbpDataDictionaryApplicationContractsModule))]
     [DependsOn(typeof(AbpDataDictionaryApplicationContractsSharedModule))]
-    [DependsOn(typeof(SettingUiApplicationContractsModule))]
+    [DependsOn(typeof(AbpSettingUiApplicationContractsModule))]
     [DependsOn(typeof(AbpTreesApplicationContractsModule))]
     public class AbpVnextApplicationContractsModule : AbpModule
     {

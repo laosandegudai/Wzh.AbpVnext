@@ -43,7 +43,7 @@ namespace Wzh.AbpVnext
         typeof(NotificationServiceDomainSharedModule),
         typeof(AbpPhoneNumberLoginDomainSharedModule),
         typeof(WeChatManagementMiniProgramsDomainSharedModule),
-        typeof(SettingUiDomainSharedModule)
+        typeof(AbpSettingUiDomainSharedModule)
         )]
     [DependsOn(typeof(AbpDataDictionaryDomainSharedModule))]
     [DependsOn(typeof(WeChatManagementCommonDomainSharedModule))]

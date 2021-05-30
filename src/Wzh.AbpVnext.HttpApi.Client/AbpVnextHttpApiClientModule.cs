@@ -24,7 +24,7 @@ namespace Wzh.AbpVnext
         typeof(NotificationServiceHttpApiClientModule),
         typeof(AbpPhoneNumberLoginHttpApiClientModule),
         typeof(WeChatManagementMiniProgramsHttpApiClientModule),
-        typeof(SettingUiHttpApiClientModule)
+        typeof(AbpSettingUiHttpApiClientModule)
     )]
     public class AbpVnextHttpApiClientModule : AbpModule
     {
