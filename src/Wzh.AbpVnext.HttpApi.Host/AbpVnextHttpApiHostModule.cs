@@ -293,7 +293,7 @@ namespace Wzh.AbpVnext
             }
 
             app.UseCorrelationId();
-            app.UseVirtualFiles();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
@@ -323,8 +323,8 @@ namespace Wzh.AbpVnext
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
             app.UseHangfireDashboard();
-            context.AddBackgroundWorker<FileCheckerWorker>();
-            RecurringJob.AddOrUpdate<FileCheckJob>(r => r.ExecuteAsync(new FileCheckArgs()), Cron.Hourly);
+            //context.AddBackgroundWorker<FileCheckerWorker>();
+            //RecurringJob.AddOrUpdate<FileCheckJob>(r => r.ExecuteAsync(new FileCheckArgs()), Cron.Hourly);
         }
     }
 }

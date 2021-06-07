@@ -16,6 +16,8 @@ using EasyAbp.Abp.Trees;
 using Microsoft.Extensions.DependencyInjection;
 using Magicodes.ExporterAndImporter.Excel;
 using Magicodes.ExporterAndImporter.Core;
+using Microsoft.Extensions.Options;
+using Volo.Abp;
 
 namespace Wzh.AbpVnext
 {
@@ -33,7 +35,7 @@ namespace Wzh.AbpVnext
         typeof(NotificationServiceApplicationModule),
         typeof(AbpPhoneNumberLoginApplicationModule),
         typeof(WeChatManagementMiniProgramsApplicationModule),
-        typeof(SettingUiApplicationModule)
+        typeof(AbpSettingUiApplicationModule)
         )]
     [DependsOn(typeof(AbpDataDictionaryApplicationModule))]
     [DependsOn(typeof(AbpTreesApplicationModule))]
@@ -44,9 +46,16 @@ namespace Wzh.AbpVnext
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddMaps<AbpVnextApplicationModule>();
+                context.Services.AddSingleton<IExcelExporter, ExcelExporter>();
                 context.Services.AddSingleton<IExcelImporter, ExcelImporter>();
-                context.Services.AddSingleton<IExporter, ExcelExporter>();
             });
+        }
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        {
+            var options = context.ServiceProvider.GetRequiredService<IOptions<AbpDataDictionaryOptions>>().Value;
+            // …®√Ë∆‰À˚ƒ£øÈ°£
+            var rules = context.ServiceProvider.GetRequiredService<IDataDictionaryLoader>().ScanRules(typeof(AbpVnextApplicationContractsModule).Assembly);
+            options.Rules.AddRange(rules);
         }
     }
 }
